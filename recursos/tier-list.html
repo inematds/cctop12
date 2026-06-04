@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Todo recurso do Claude, ranqueado · Tier List</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;500;600&family=Chakra+Petch:wght@500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg0: #05070f;
+    --bg1: #0a0f1f;
+    --ink: #eaf0fb;
+    --ink-soft: #9aa6be;
+    --ink-faint: #5d6883;
+    --line: rgba(140,160,200,.14);
+    --line-strong: rgba(140,160,200,.28);
+    --glass: rgba(255,255,255,.035);
+    --glass-2: rgba(255,255,255,.055);
+
+    --tS: #ffcf5c;  --tS2:#ff9d2f;
+    --tA: #5ee9a0;  --tA2:#22c98a;
+    --tB: #5cc8ff;  --tB2:#3b82f6;
+    --tC: #b79bff;  --tC2:#8b5cf6;
+    --tD: #9aa6c0;  --tD2:#6b7896;
+  }
+
+  html, body { width: 100%; height: 100%; }
+  body {
+    background: var(--bg0);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- futuristic backdrop ---------- */
+  #bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  #bg .mesh {
+    position: absolute; inset: -20%;
+    background:
+      radial-gradient(40vw 40vw at 18% 12%, rgba(59,130,246,.22), transparent 60%),
+      radial-gradient(46vw 46vw at 86% 18%, rgba(139,92,246,.18), transparent 62%),
+      radial-gradient(50vw 50vw at 78% 92%, rgba(34,201,138,.14), transparent 60%),
+      radial-gradient(44vw 44vw at 12% 88%, rgba(255,157,47,.12), transparent 60%);
+    filter: blur(10px);
+  }
+  #bg .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(circle at 50% 45%, #000 0%, #000 55%, transparent 88%);
+    opacity: .5;
+  }
+  #bg .vignette {
+    position: absolute; inset: 0;
+    background: radial-gradient(120% 120% at 50% 0%, transparent 55%, rgba(0,0,0,.55) 100%);
+  }
+
+  #deck { position: relative; z-index: 1; width: 100vw; height: 100vh; cursor: pointer; }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6vh 5.5vw;
+  }
+  .slide.active { display: flex; }
+
+  /* corner HUD frame */
+  .hud { position: absolute; z-index: 3; width: 34px; height: 34px; border: 2px solid var(--line-strong); pointer-events: none; }
+  .hud.tl { top: 3.2vh; left: 3vw; border-right: 0; border-bottom: 0; }
+  .hud.tr { top: 3.2vh; right: 3vw; border-left: 0; border-bottom: 0; }
+  .hud.bl { bottom: 3.2vh; left: 3vw; border-right: 0; border-top: 0; }
+  .hud.br { bottom: 3.2vh; right: 3vw; border-left: 0; border-top: 0; }
+
+  .reveal { opacity: 1; }
+  .slide.active .reveal { animation: rise .55s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--i,0) * 60ms); }
+  @keyframes rise { from { opacity: 0; transform: translateY(2.2vh); filter: blur(6px);} to { opacity: 1; transform: none; filter: none; } }
+  body.export .reveal { animation: none !important; opacity: 1 !important; transform: none !important; filter: none !important; }
+  body.export #progress, body.export .navbtn, body.export #counter, body.export #hint { display: none !important; }
+
+  /* ---------- typographic system ---------- */
+  h1 { font-family: 'Space Grotesk'; font-weight: 700; font-size: 5vw; line-height: 1.02; text-align: center; letter-spacing: -.5px; }
+  .grad { background: linear-gradient(100deg, #fff 10%, #9bc2ff 55%, #b79bff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .eyebrow {
+    font-family: 'Space Grotesk'; font-size: 1.05vw; text-transform: uppercase; letter-spacing: 5px;
+    color: var(--tB); font-weight: 500; margin-bottom: 2.4vh;
+    display: inline-flex; align-items: center; gap: .8vw;
+  }
+  .eyebrow::before, .eyebrow::after { content: ''; width: 2.4vw; height: 1px; background: linear-gradient(90deg, transparent, var(--tB)); }
+  .eyebrow::after { background: linear-gradient(90deg, var(--tB), transparent); }
+  .sub { font-size: 1.45vw; color: var(--ink-soft); text-align: center; margin-top: 2.6vh; line-height: 1.5; font-weight: 300; max-width: 60vw; }
+  .corner-tag {
+    position: absolute; top: 6vh; left: 6vw; font-family: 'Space Grotesk'; font-size: 1vw;
+    color: var(--tB); letter-spacing: 3px; text-transform: uppercase; font-weight: 500;
+  }
+  .corner-tag::before { content: '// '; color: var(--ink-faint); }
+
+  .mini-tiers { display: flex; gap: 0.7vw; margin-top: 4.5vh; }
+  .mini-tiers span {
+    font-family: 'Chakra Petch'; font-size: 2vw; font-weight: 700; width: 3.6vw; height: 3.6vw;
+    display: flex; align-items: center; justify-content: center; color: #05070f;
+    border-radius: 14px; position: relative;
+  }
+  .mini-tiers .S { background: linear-gradient(150deg, var(--tS), var(--tS2)); box-shadow: 0 0 26px rgba(255,157,47,.5); }
+  .mini-tiers .A { background: linear-gradient(150deg, var(--tA), var(--tA2)); box-shadow: 0 0 22px rgba(34,201,138,.4); }
+  .mini-tiers .B { background: linear-gradient(150deg, var(--tB), var(--tB2)); box-shadow: 0 0 22px rgba(59,130,246,.4); }
+  .mini-tiers .C { background: linear-gradient(150deg, var(--tC), var(--tC2)); box-shadow: 0 0 22px rgba(139,92,246,.4); }
+  .mini-tiers .D { background: linear-gradient(150deg, var(--tD), var(--tD2)); }
+
+  /* ---------- tier slide header ---------- */
+  .tier-head { display: flex; align-items: center; gap: 1.6vw; align-self: flex-start; margin-bottom: 2.4vh; }
+  .tier-badge {
+    width: 6vw; height: 6vw; flex: 0 0 6vw;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Chakra Petch'; font-size: 3.6vw; font-weight: 700; color: #05070f;
+    border-radius: 22px; position: relative;
+  }
+  .tier-badge::after { content: ''; position: absolute; inset: 0; border-radius: 22px; border: 1px solid rgba(255,255,255,.35); }
+  .tier-badge.S { background: linear-gradient(150deg, var(--tS), var(--tS2)); box-shadow: 0 0 40px rgba(255,157,47,.45); }
+  .tier-badge.A { background: linear-gradient(150deg, var(--tA), var(--tA2)); box-shadow: 0 0 36px rgba(34,201,138,.38); }
+  .tier-badge.B { background: linear-gradient(150deg, var(--tB), var(--tB2)); box-shadow: 0 0 36px rgba(59,130,246,.38); }
+  .tier-badge.C { background: linear-gradient(150deg, var(--tC), var(--tC2)); box-shadow: 0 0 36px rgba(139,92,246,.38); }
+  .tier-badge.D { background: linear-gradient(150deg, var(--tD), var(--tD2)); box-shadow: 0 0 28px rgba(120,140,180,.3); }
+  .tier-name { font-family: 'Space Grotesk'; font-size: 2.5vw; font-weight: 700; line-height: 1.05; letter-spacing: -.4px; }
+  .tier-note { font-size: 1.25vw; color: var(--ink-soft); font-weight: 300; margin-top: .4vh; }
+  .tier-note b { color: var(--ink); font-weight: 500; }
+
+  /* ---------- feature card grid ---------- */
+  .fgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1vh 1.1vw; width: 91vw; align-content: start; }
+  .fcard {
+    border: 1px solid var(--line); background: var(--glass);
+    border-radius: 16px; padding: 1.25vh 1.2vw;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    position: relative; overflow: hidden;
+  }
+  .fcard::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent, var(--tB)); opacity: .35; }
+  .fname { font-family: 'Space Grotesk'; font-size: 1.18vw; font-weight: 500; color: var(--ink); line-height: 1.1; }
+  .fdesc { font-size: 0.86vw; font-weight: 300; color: var(--ink-soft); line-height: 1.32; margin-top: 0.55vh; }
+  .fcard.hot {
+    border-color: var(--accent, var(--tB)); background: var(--accent-fill, rgba(59,130,246,.1));
+    box-shadow: 0 0 0 1px var(--accent, var(--tB)) inset, 0 0 34px -8px var(--accent, var(--tB));
+  }
+  .fcard.hot::before { opacity: 1; width: 4px; box-shadow: 0 0 14px var(--accent); }
+  .fcard.hot .fname { color: var(--accent, var(--tB)); }
+  .fcard.hot .fdesc { color: #cdd6e8; }
+
+  .grid-S { --accent: var(--tS); --accent-fill: rgba(255,157,47,.1); }
+  .grid-A { --accent: var(--tA); --accent-fill: rgba(34,201,138,.1); }
+  .grid-B { --accent: var(--tB); --accent-fill: rgba(59,130,246,.1); }
+  .grid-C { --accent: var(--tC); --accent-fill: rgba(139,92,246,.1); }
+  .grid-D { --accent: var(--tD); --accent-fill: rgba(120,140,180,.08); }
+
+  /* ---------- S countdown ---------- */
+  .s-wrap { display: flex; align-items: center; gap: 4.5vw; width: 100%; justify-content: center; }
+  .s-num {
+    font-family: 'Chakra Petch'; font-size: 18vw; font-weight: 700; line-height: .8;
+    background: linear-gradient(160deg, var(--tS) 0%, var(--tS2) 70%, #ff7a1a 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 40px rgba(255,157,47,.35));
+  }
+  .s-num .hash { font-family: 'Space Grotesk'; font-size: 5vw; vertical-align: super; -webkit-text-fill-color: var(--ink-faint); }
+  .s-right { max-width: 44vw; }
+  .s-tag {
+    display: inline-flex; align-items: center; gap: .5vw; font-family: 'Space Grotesk'; font-size: 1vw; font-weight: 500; letter-spacing: 3px;
+    color: var(--tS); border: 1px solid rgba(255,207,92,.5); padding: 0.6vh 1.1vw; border-radius: 999px;
+    background: rgba(255,207,92,.08); text-transform: uppercase;
+  }
+  .s-tag::before { content: ''; width: .6vw; height: .6vw; border-radius: 50%; background: var(--tS); box-shadow: 0 0 12px var(--tS); }
+  .s-feat { font-family: 'Space Grotesk'; font-size: 5.4vw; font-weight: 700; line-height: 1.0; margin: 1.6vh 0 1.8vh; letter-spacing: -1px; }
+  .s-one { font-size: 1.55vw; color: var(--ink-soft); line-height: 1.42; font-weight: 300; }
+  .s-demo {
+    margin-top: 3.2vh; display: inline-flex; align-items: center; gap: 0.7vw;
+    font-family: 'Space Grotesk'; font-size: 1.2vw; font-weight: 500; color: var(--tA);
+    border: 1px solid rgba(94,233,160,.4); padding: 0.9vh 1.5vw; border-radius: 999px;
+    background: rgba(94,233,160,.06);
+  }
+  .dots { position: absolute; bottom: 6vh; left: 50%; transform: translateX(-50%); display: flex; gap: 0.8vw; align-items: center; }
+  .dots .d { width: 0.7vw; height: 0.7vw; border-radius: 50%; border: 1px solid var(--ink-faint); transition: .2s; }
+  .dots .d.done { background: var(--tS2); border-color: var(--tS2); box-shadow: 0 0 8px var(--tS2); }
+  .dots .d.now  { background: var(--tS); border-color: var(--tS); transform: scale(1.7); box-shadow: 0 0 16px var(--tS); }
+
+  .slide.crown .s-num { background: linear-gradient(160deg, #fff, var(--tS)); -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 0 60px rgba(255,207,92,.6)); }
+  .slide.crown .s-feat { color: var(--tS); }
+  .crown-banner {
+    position: absolute; top: 7vh; left: 50%; transform: translateX(-50%);
+    font-family: 'Space Grotesk'; font-size: 1.4vw; font-weight: 500; color: var(--tS); letter-spacing: 4px; text-transform: uppercase;
+    border: 1px solid rgba(255,207,92,.4); padding: .7vh 1.6vw; border-radius: 999px; background: rgba(255,207,92,.07);
+  }
+
+  /* ---------- rules ---------- */
+  .rules { display: flex; flex-direction: column; gap: 2.4vh; margin-top: 4vh; align-self: flex-start; max-width: 70vw; }
+  .rule { display: flex; align-items: center; gap: 1.5vw; font-size: 2vw; font-weight: 300; color: var(--ink); }
+  .rule .b {
+    font-family: 'Chakra Petch'; color: var(--tB); font-size: 1.4vw; font-weight: 700;
+    width: 3vw; height: 3vw; flex: 0 0 3vw; display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(92,200,255,.4); border-radius: 12px; background: rgba(92,200,255,.07);
+  }
+
+  /* ---------- end board ---------- */
+  .board { display: flex; flex-direction: column; gap: 1vh; width: 92vw; }
+  .row { display: flex; align-items: stretch; gap: 1vw; }
+  .row-label {
+    flex: 0 0 4.6vw; display: flex; align-items: center; justify-content: center;
+    font-family: 'Chakra Petch'; font-size: 2.2vw; font-weight: 700; color: #05070f;
+    border-radius: 14px; position: relative;
+  }
+  .row-S .row-label { background: linear-gradient(150deg, var(--tS), var(--tS2)); box-shadow: 0 0 24px rgba(255,157,47,.4); }
+  .row-A .row-label { background: linear-gradient(150deg, var(--tA), var(--tA2)); }
+  .row-B .row-label { background: linear-gradient(150deg, var(--tB), var(--tB2)); }
+  .row-C .row-label { background: linear-gradient(150deg, var(--tC), var(--tC2)); }
+  .row-D .row-label { background: linear-gradient(150deg, var(--tD), var(--tD2)); }
+  .row .chips { flex: 1; display: flex; flex-wrap: wrap; gap: 0.55vh 0.5vw; align-content: center; }
+  .chip {
+    font-family: 'Space Grotesk'; font-size: 0.84vw; font-weight: 400; padding: 0.45vh 0.7vw;
+    border: 1px solid var(--line); border-radius: 8px; background: var(--glass); white-space: nowrap; color: var(--ink);
+  }
+  .row-S .chip { border-color: rgba(255,207,92,.4); }
+  .row-A .chip { border-color: rgba(94,233,160,.35); }
+  .row-B .chip { border-color: rgba(92,200,255,.35); }
+  .row-C .chip { border-color: rgba(183,155,255,.35); }
+  .row-D .chip { border-color: var(--line); color: var(--ink-soft); }
+
+  /* ---------- chrome ---------- */
+  #progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--tB), var(--tC)); width: 0%; z-index: 100; transition: width .35s ease; box-shadow: 0 0 12px var(--tB); }
+  .navbtn {
+    position: fixed; bottom: 3vh; z-index: 100;
+    background: var(--glass); border: 1px solid var(--line-strong); color: var(--ink-soft);
+    font-family: 'Space Grotesk'; font-size: 0.95vw; padding: 0.9vh 1.5vw; letter-spacing: 1px;
+    border-radius: 999px; cursor: pointer; transition: .2s; backdrop-filter: blur(8px);
+  }
+  .navbtn:hover { color: var(--ink); border-color: var(--tB); }
+  #prevBtn { right: 8vw; } #nextBtn { right: 3vw; }
+  #counter { position: fixed; bottom: 3.6vh; left: 3vw; z-index: 100; font-family: 'Chakra Petch'; font-size: 0.9vw; color: var(--ink-faint); letter-spacing: 1px; }
+  #hint { position: fixed; bottom: 3.6vh; left: 50%; transform: translateX(-50%); z-index: 100; font-size: 0.85vw; color: var(--ink-faint); transition: opacity .6s; }
+</style>
+</head>
+<body>
+
+<div id="bg"><div class="mesh"></div><div class="grid"></div><div class="vignette"></div></div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-name="01-titulo">
+    <div class="eyebrow reveal">Claude · o ecossistema inteiro</div>
+    <h1 class="reveal grad" style="--i:1">Todo recurso do Claude,<br>ranqueado</h1>
+    <div class="sub reveal" style="--i:2">Uma tier list. Cada recurso explicado.<br>Contagem regressiva até o&nbsp;#1.</div>
+    <div class="mini-tiers reveal" style="--i:3">
+      <span class="S">S</span><span class="A">A</span><span class="B">B</span><span class="C">C</span><span class="D">D</span>
+    </div>
+  </section>
+
+  <!-- 2 · RULES -->
+  <section class="slide" data-name="02-regras">
+    <h1 class="reveal grad" style="text-align:left;align-self:flex-start;font-size:3.6vw">Como eu ranqueei</h1>
+    <div class="rules">
+      <div class="rule reveal" style="--i:1"><span class="b">1</span> Pelo quanto muda meu dia de verdade.</div>
+      <div class="rule reveal" style="--i:2"><span class="b">2</span> Lente: trabalho de conhecimento e automação.</div>
+      <div class="rule reveal" style="--i:3"><span class="b">3</span> Não é benchmark. Não é construir apps.</div>
+      <div class="rule reveal" style="--i:4"><span class="b">4</span> Você vai discordar de alguns. Ótimo.</div>
+    </div>
+  </section>
+
+  <!-- 3 · D -->
+  <section class="slide" data-name="03-tier-D">
+    <div class="tier-head reveal">
+      <div class="tier-badge D">D</div>
+      <div><div class="tier-name">Fundação e encanamento</div>
+      <div class="tier-note">Reais e úteis. Só que não são o <b>"recurso favorito"</b> de ninguém.</div></div>
+    </div>
+    <div class="fgrid grid-D reveal" style="--i:1" data-fill="D"></div>
+  </section>
+
+  <!-- 4 · C -->
+  <section class="slide" data-name="04-tier-C">
+    <div class="tier-head reveal">
+      <div class="tier-badge C">C</div>
+      <div><div class="tier-name">Cowork e web — baixo pra mim</div>
+      <div class="tier-note">Boas ferramentas. Só <b>não é como eu trabalho.</b></div></div>
+    </div>
+    <div class="fgrid grid-C reveal" style="--i:1" data-fill="C"></div>
+  </section>
+
+  <!-- 5 · B -->
+  <section class="slide" data-name="05-tier-B">
+    <div class="tier-head reveal">
+      <div class="tier-badge B">B</div>
+      <div><div class="tier-name">Genuinamente úteis</div>
+      <div class="tier-note">Bons recursos que só <b>não entraram no meu top 30.</b></div></div>
+    </div>
+    <div class="fgrid grid-B reveal" style="--i:1" data-fill="B"></div>
+  </section>
+
+  <!-- 6 · A -->
+  <section class="slide" data-name="06-tier-A">
+    <div class="tier-head reveal">
+      <div class="tier-badge A">A</div>
+      <div><div class="tier-name">Menções honrosas</div>
+      <div class="tier-note">Tão perto do <b>S.</b></div></div>
+    </div>
+    <div class="fgrid grid-A reveal" style="--i:1" data-fill="A"></div>
+  </section>
+
+  <!-- 7 · S INTRO -->
+  <section class="slide" id="s-intro" data-name="07-S-intro">
+    <div class="tier-badge S reveal" style="width:11vw;height:11vw;flex-basis:11vw;font-size:7vw">S</div>
+    <h1 class="reveal grad" style="--i:1;font-size:3.8vw;margin-top:2.4vh">O top 12</h1>
+    <div class="sub reveal" style="--i:2">Os recursos que realmente mudaram como eu trabalho.<br>Contagem regressiva. O #1 é o último.</div>
+  </section>
+
+  <!-- S countdown injected here -->
+
+  <!-- LAST · FULL BOARD -->
+  <section class="slide" id="recap" data-name="20-quadro-completo">
+    <div class="corner-tag reveal">O quadro completo</div>
+    <div class="board reveal" id="board-recap" style="--i:1"></div>
+    <div class="sub reveal" style="--i:2;margin-top:3vh">Comente seu #1 e me diga o que eu errei.</div>
+  </section>
+
+</div>
+
+<div class="hud tl"></div><div class="hud tr"></div><div class="hud bl"></div><div class="hud br"></div>
+
+<div id="progress"></div>
+<button class="navbtn" id="prevBtn">← anterior</button>
+<button class="navbtn" id="nextBtn">próximo →</button>
+<div id="counter"></div>
+<div id="hint">setas, clique ou botões · Home/End para pular</div>
+
+<script>
+  const TIERS = {
+    A: [
+      {n:'Google Workspace CLI', d:'Roda Gmail, Drive, Docs e Sheets pelo terminal. Prova que o Claude dirige qualquer CLI.', hot:true},
+      {n:'Dispatch', d:'Começa a tarefa no celular, o Claude roda no desktop e te devolve o resultado.', hot:true},
+      {n:'Claude Desktop App', d:'A base no Mac e Windows para chat, Cowork e conectores.', hot:true},
+      {n:'Claude Design', d:'Descreva e o Claude monta designs, slides e one-pagers polidos.', hot:true},
+      {n:'Plugins & Marketplace', d:'Instale pacotes de skills, agents e hooks de um marketplace.'},
+      {n:'Workspace Connectors', d:'Conecte Gmail, Agenda e Drive para o Claude usar seus dados Google.'},
+      {n:'File Creation & Editing', d:'Cria Excel, Word, PowerPoint e PDF prontos para baixar.'},
+      {n:'Ultracode', d:'Tier de esforço máximo: raciocínio no talo + multi-agente automático.'},
+      {n:'Effort Levels', d:'Ajuste a profundidade do raciocínio, do baixo ao máximo, com /effort.'},
+      {n:'Channels', d:'Conecte Telegram, Discord ou iMessage a uma sessão ao vivo, nos dois sentidos.'},
+      {n:'Hooks', d:'Roda seus próprios comandos automaticamente em eventos da sessão.'},
+      {n:'Auto Mode', d:'Aprova ações seguras, bloqueia as arriscadas, sem ficar perguntando.'},
+      {n:'/background', d:'Joga uma sessão para segundo plano e reconecta depois.'},
+      {n:'Agent View', d:'Um painel com todos os agentes em background e seu status.'},
+      {n:'Plan Mode', d:'O Claude pesquisa e propõe um plano antes de mexer em qualquer coisa.'},
+      {n:'/btw', d:'Faça uma pergunta paralela rápida sem descarrilar a tarefa principal.'},
+      {n:'/usage', d:'Detalhamento de tokens e custo da sua sessão.'},
+      {n:'/context', d:'Veja exatamente o que está ocupando seu context window.'},
+      {n:'Prompt Caching', d:'Reaproveita contexto repetido: sessões grandes ficam mais baratas e rápidas.'}
+    ],
+    B: [
+      {n:'Dynamic Workflows', d:'O Claude escreve um script que roda até 1.000 agentes para trabalhos enormes.', hot:true},
+      {n:'Git Worktrees', d:'Roda agentes em cópias isoladas do repo para nunca colidirem.', hot:true},
+      {n:'Ultrareview', d:'Uma frota de agentes na nuvem verifica cada bug antes de reportar.', hot:true},
+      {n:'/deep-research', d:'Espalha buscas na web e devolve um relatório único com citações.'},
+      {n:'Claude in Chrome', d:'Um painel lateral que clica, preenche formulários e age entre suas abas.'},
+      {n:'Artifact Apps', d:'Crie apps compartilháveis movidos por Claude ao vivo, sem código.'},
+      {n:'Computer Use', d:'O Claude aponta e clica para usar qualquer app quando não há conector.'},
+      {n:'Advanced Research', d:'Encadeia buscas na web e nos seus apps em um relatório citado.'},
+      {n:'Projects', d:'Espaços que mantêm chats, arquivos e instruções juntos.'},
+      {n:'Mobile Push', d:'Alerta no celular quando uma tarefa longa termina ou precisa de você.'},
+      {n:'/recap', d:'Um resumo rápido de onde você parou quando volta.'},
+      {n:'Interactive Charts', d:'O Claude desenha gráficos e diagramas direto no chat.'},
+      {n:'Artifacts', d:'Saídas renderizam num painel lateral que você edita ao vivo.'},
+      {n:'Cross-Device Convo', d:'Começa no celular, continua no desktop, no mesmo thread.'},
+      {n:'Browser Recording', d:'Grave uma tarefa no navegador uma vez; o Claude repete sob demanda.'},
+      {n:'Memory', d:'Carrega contexto relevante de chats antigos para os novos.'},
+      {n:'Connectors Directory', d:'Navegue e adicione conectores homologados.'},
+      {n:'Claude for M365', d:'Claude nativo dentro de Word, Excel, PowerPoint e Outlook.'}
+    ],
+    C: [
+      {n:'Voice Mode', d:'Conversas faladas completas, mãos livres.', hot:true},
+      {n:'Cowork', d:'O desktop agente sem terminal da Anthropic para trabalho de conhecimento.', hot:true},
+      {n:'Interactive Connectors', d:'Adicione e gerencie conectores MCP dentro da própria CLI.', hot:true},
+      {n:'Citations', d:'Ancora respostas nos seus documentos com citações exatas. API.'},
+      {n:'Chat Search', d:'Busca em todas as suas conversas passadas.'},
+      {n:'Claude in Slack', d:'Mencione @Claude no Slack e ele faz a tarefa e responde.'},
+      {n:'Local File Access', d:'Conecte uma pasta para o Claude ler e organizar seus arquivos.'},
+      {n:'Cowork Plugins', d:'Pacotes de skills e conectores para o Cowork.'},
+      {n:'Cowork Projects', d:'Agrupe tarefas do Cowork num espaço persistente.'},
+      {n:'Incognito Chats', d:'Um chat que não é salvo, lembrado nem usado para treino.'},
+      {n:'/teleport', d:'Puxe uma sessão web do Claude para dentro do seu terminal.'}
+    ],
+    D: [
+      {n:'Memory Files (CLAUDE.md)', d:'Um arquivo que o Claude lê toda sessão para conhecer seu projeto.', hot:true},
+      {n:'Context Lifecycle', d:'/clear, /compact e /resume para gerenciar a conversa.', hot:true},
+      {n:'Web Search', d:'O Claude busca na web e cita as fontes.', hot:true},
+      {n:'Permissions', d:'Controle o que o Claude pode fazer sem perguntar.'},
+      {n:'Fast Mode', d:'Opus com saída mais rápida; alterne com /fast.'},
+      {n:'File Uploads', d:'Solte imagens, PDFs e documentos.'},
+      {n:'Output Styles', d:'Mude como o Claude formata as respostas.'},
+      {n:'Headless Mode', d:'Rode o Claude como comando único em scripts.'},
+      {n:'Sandboxed Bash', d:'Rode comandos de shell com segurança num sandbox.'},
+      {n:'Transcript Viewer', d:'Role por toda a sessão (Ctrl+O).'},
+      {n:'History Search', d:'Busque seus prompts anteriores (Ctrl+R).'},
+      {n:'Shell Mode', d:'Rode um comando de shell cru com o prefixo !.'},
+      {n:'Voice Dictation', d:'Fale em vez de digitar com /voice.'},
+      {n:'Custom Themes', d:'Mude o tema de cores da CLI.'},
+      {n:'IDE Extension', d:'Claude Code dentro do VS Code e JetBrains.'},
+      {n:'Mobile Apps', d:'Claude no iOS e Android.'},
+      {n:'Code Review', d:'O Claude revisa seu git diff com /code-review.'}
+    ]
+  };
+
+  const S_DETAIL = [
+    {r:1,  name:'Skills',         slug:'skills',        one:'Receitas em markdown que ensinam seus workflows ao Claude. Reutilizáveis, encadeáveis e compartilháveis — e funcionam no Code, no Chat e no Cowork.'},
+    {r:2,  name:'Status Line',    slug:'statusline',    one:'Barra de status scriptável: modelo, effort e quanto do context window já foi consumido. A correção mais fácil e mais subestimada de todas.'},
+    {r:3,  name:'Routines',       slug:'routines',      one:'Agenda um agente de verdade (não um script Python), local ou na nuvem, rodando com o laptop fechado.'},
+    {r:4,  name:'Remote Control', slug:'remote-control',one:'Dirija sua sessão local do Claude Code pelo celular ou pela web, sincronizada em tempo real.'},
+    {r:5,  name:'/loop',          slug:'loop',          one:'Repete um prompt num intervalo até bater a condição. Usa cron e fica preso à sessão.'},
+    {r:6,  name:'Subagents',      slug:'subagents',     one:'Dispara agentes em background, em paralelo, cada um no próprio context window.'},
+    {r:7,  name:'/rewind',        slug:'rewind',        one:'Volta código e conversa a qualquer checkpoint anterior — melhor que tentar corrigir por prompt.'},
+    {r:8,  name:'Agent Teams',    slug:'agent-teams',   one:'Um time nomeado de agentes que rodam em paralelo e debatem entre si até concordar.'},
+    {r:9,  name:'Auto Memory',    slug:'auto-memory',   one:'Melhora a memória sozinho, por repositório, sem você pedir.'},
+    {r:10, name:'/insights',      slug:'insights',      one:'Relatório local dos últimos 30 dias: padrões, atritos e o que você deveria usar mais.'},
+    {r:11, name:'Ultraplan',      slug:'ultraplan',     one:'Offload do planejamento para a nuvem; revise e comente no navegador.'},
+    {r:12, name:'/goal',          slug:'goal',          one:'Defina a linha de chegada e o Claude trabalha — com verificação — até cumprir.'}
+  ];
+
+  /* feature grids */
+  document.querySelectorAll('[data-fill]').forEach(grid=>{
+    const key = grid.getAttribute('data-fill');
+    TIERS[key].forEach(f=>{
+      const c = document.createElement('div');
+      c.className = 'fcard' + (f.hot ? ' hot' : '');
+      c.innerHTML = '<div class="fname">'+f.n+'</div><div class="fdesc">'+f.d+'</div>';
+      grid.appendChild(c);
+    });
+  });
+
+  /* end board */
+  (function(){
+    const el = document.getElementById('board-recap');
+    function row(t, names){
+      const r = document.createElement('div'); r.className = 'row row-'+t;
+      const lab = document.createElement('div'); lab.className = 'row-label'; lab.textContent = t;
+      const chips = document.createElement('div'); chips.className = 'chips';
+      names.forEach(n=>{ const c = document.createElement('div'); c.className='chip'; c.textContent=n; chips.appendChild(c); });
+      r.append(lab, chips); el.appendChild(r);
+    }
+    row('S', [...S_DETAIL].sort((a,b)=>a.r-b.r).map(x=>x.r+'. '+x.name));
+    ['A','B','C','D'].forEach(t=> row(t, TIERS[t].map(f=>f.n)));
+  })();
+
+  /* S countdown 12 -> 1 */
+  const sIntro = document.getElementById('s-intro');
+  let anchor = sIntro;
+  [...S_DETAIL].sort((a,b)=> b.r - a.r).forEach(d=>{
+    const s = document.createElement('section');
+    s.className = 'slide' + (d.r === 1 ? ' crown' : '');
+    s.dataset.name = String(20-d.r).padStart(2,'0') + '-S' + String(d.r).padStart(2,'0') + '-' + d.slug;
+    const dots = S_DETAIL.map(x=>{
+      let cls = 'd'; if (x.r > d.r) cls += ' done'; if (x.r === d.r) cls += ' now';
+      return '<span class="'+cls+'"></span>';
+    }).join('');
+    s.innerHTML = `
+      ${d.r===1 ? '<div class="crown-banner reveal">★ O recurso nº 1</div>' : ''}
+      <div class="s-wrap">
+        <div class="s-num reveal"><span class="hash">#</span>${d.r}</div>
+        <div class="s-right">
+          <div class="s-tag reveal" style="--i:1">S TIER</div>
+          <div class="s-feat reveal" style="--i:2">${d.name}</div>
+          <div class="s-one reveal" style="--i:3">${d.one}</div>
+          <div class="s-demo reveal" style="--i:4">&#9654; demo ao vivo</div>
+        </div>
+      </div>
+      <div class="dots reveal">${dots}</div>`;
+    anchor.insertAdjacentElement('afterend', s); anchor = s;
+  });
+
+  /* nav */
+  const slides = [...document.querySelectorAll('.slide')];
+  const progress = document.getElementById('progress');
+  const counter = document.getElementById('counter');
+  const hint = document.getElementById('hint');
+  let cur = 0;
+  function show(i){
+    slides[cur].classList.remove('active');
+    cur = Math.max(0, Math.min(slides.length-1, i));
+    slides[cur].classList.add('active');
+    counter.textContent = String(cur+1).padStart(2,'0') + ' / ' + slides.length;
+    progress.style.width = ((cur+1)/slides.length*100) + '%';
+  }
+  const next = ()=> show(cur+1);
+  const prev = ()=> show(cur-1);
+  document.getElementById('nextBtn').addEventListener('click', e=>{ e.stopPropagation(); next(); });
+  document.getElementById('prevBtn').addEventListener('click', e=>{ e.stopPropagation(); prev(); });
+  document.getElementById('deck').addEventListener('click', e=>{
+    (e.clientX / window.innerWidth < 0.33) ? prev() : next();
+  });
+  document.addEventListener('keydown', e=>{
+    if (['ArrowRight',' ','PageDown'].includes(e.key)){ e.preventDefault(); next(); }
+    else if (['ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); prev(); }
+    else if (e.key === 'Home'){ show(0); }
+    else if (e.key === 'End'){ show(slides.length-1); }
+  });
+  setTimeout(()=>{ hint.style.opacity = '0'; }, 4500);
+  show(0);
+
+  /* export hooks */
+  window.__slides = slides;
+  window.__count = slides.length;
+  window.__names = slides.map(s=> s.dataset.name || '');
+  window.__goto = show;
+</script>
+</body>
+</html>

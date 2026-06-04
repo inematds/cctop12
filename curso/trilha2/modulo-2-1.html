@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 2.1 — Workflows, isolamento e review (Tier B) | Claude Code Tier S</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: blue (T2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.06); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .text-amber-400 { color: #b45309; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(180,83,9,0.12); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(180,83,9,0.25); }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.5 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <!-- NAV -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🏆</span><span class="font-bold text-lg hidden sm:inline">Claude Code Tier S</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">A Fundação</span></a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Produtividade</span></a>
+          <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">O Top 12</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-blue-400">Início</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-blue-400">Trilha 2</a>
+      <span>/</span>
+      <span class="text-blue-400">Módulo 2.1</span>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">MÓDULO 2.1 · TIER B</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">⚙️ Workflows, isolamento e review</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">
+        Os recursos genuinamente úteis do Tier B. O fio condutor é o paralelismo: o Claude escreve scripts que sobem dezenas a centenas de agentes, isola o trabalho em cópias do repo, revisa na nuvem e ainda pesquisa por você — tudo sem poluir a sua sessão.
+      </p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">45</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Interm.</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Prática</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <h2 class="text-2xl font-bold mb-6">Conteúdo detalhado</h2>
+
+    <!-- TÓPICO 1 — Dynamic Workflows -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-3">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
+        <div>
+          <span class="text-xs font-bold text-blue-400 tracking-wider">B TIER · PARALELISMO</span>
+          <h2 class="text-2xl font-bold">🌊 Dynamic Workflows</h2>
+        </div>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Dynamic Workflows é quando o Claude <strong class="text-blue-400">escreve um script</strong> que roda — em casos extremos — até <strong class="text-blue-400">1.000 agentes</strong> para dar conta de trabalhos enormes. Em vez de processar tudo numa fila, ele <strong class="text-blue-400">espalha o trabalho em paralelo</strong> e junta no fim. É a base que aparece de novo em outras features deste módulo (deep research, ultrareview).
+      </p>
+
+      <!-- SVG fan-out (obrigatório no módulo) -->
+      <div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+        <svg viewBox="0 0 1000 240" class="w-full h-auto" role="img" aria-label="Um script orquestrador dispara muitos agentes em paralelo, que processam pedaços do trabalho e convergem num resultado único" font-family="Inter,sans-serif" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="m21-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#3b82f6"/></linearGradient>
+            <filter id="m21-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <pattern id="m21-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#3b82f6" opacity="0.12"/></pattern>
+            <marker id="m21-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#60a5fa"/></marker>
+            <marker id="m21-ahc" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"/></marker>
+          </defs>
+          <rect x="0" y="0" width="1000" height="240" fill="url(#m21-grid)"/>
+          <g fill="none" stroke="#60a5fa" stroke-width="2" opacity="0.6">
+            <path d="M196,120 C300,120 320,38 452,38" marker-end="url(#m21-ah)"/>
+            <path d="M196,120 C300,120 320,79 452,79" marker-end="url(#m21-ah)"/>
+            <path d="M196,120 L452,120" marker-end="url(#m21-ah)"/>
+            <path d="M196,120 C300,120 320,161 452,161" marker-end="url(#m21-ah)"/>
+            <path d="M196,120 C300,120 320,202 452,202" marker-end="url(#m21-ah)"/>
+          </g>
+          <g fill="none" stroke="#38bdf8" stroke-width="1.8" opacity="0.5">
+            <path d="M588,38  C700,38 720,120 800,120" marker-end="url(#m21-ahc)"/>
+            <path d="M588,79  C700,79 720,120 800,120" marker-end="url(#m21-ahc)"/>
+            <path d="M588,120 L800,120" marker-end="url(#m21-ahc)"/>
+            <path d="M588,161 C700,161 720,120 800,120" marker-end="url(#m21-ahc)"/>
+            <path d="M588,202 C700,202 720,120 800,120" marker-end="url(#m21-ahc)"/>
+          </g>
+          <g filter="url(#m21-glow)"><rect x="40" y="88" width="156" height="64" rx="14" fill="#0e1622" stroke="url(#m21-grad)" stroke-width="2.5"/></g>
+          <text x="118" y="114" text-anchor="middle" fill="#60a5fa" font-weight="600" font-size="18">Script</text>
+          <text x="118" y="134" text-anchor="middle" fill="#93c5fd" font-size="12">até 1.000 agentes</text>
+          <g font-size="13" font-weight="600">
+            <g class="wf-a"><rect x="452" y="22"  width="136" height="32" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="520" y="43"  text-anchor="middle" fill="#bfe6ff">agente</text></g>
+            <g class="wf-a"><rect x="452" y="63"  width="136" height="32" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="520" y="84"  text-anchor="middle" fill="#bfe6ff">agente</text></g>
+            <g class="wf-a"><rect x="452" y="104" width="136" height="32" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="520" y="125" text-anchor="middle" fill="#bfe6ff">agente</text></g>
+            <g class="wf-a"><rect x="452" y="145" width="136" height="32" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="520" y="166" text-anchor="middle" fill="#bfe6ff">agente</text></g>
+            <g class="wf-a"><rect x="452" y="186" width="136" height="32" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="520" y="207" text-anchor="middle" fill="#bfe6ff">agente …</text></g>
+          </g>
+          <g filter="url(#m21-glow)"><rect x="800" y="88" width="156" height="64" rx="14" fill="#0e1622" stroke="url(#m21-grad)" stroke-width="2.5"/></g>
+          <text x="878" y="116" text-anchor="middle" fill="#60a5fa" font-weight="600" font-size="16">Resultado</text>
+          <text x="878" y="136" text-anchor="middle" fill="#93c5fd" font-size="11">consolidado</text>
+        </svg>
+      </div>
+
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🧩</span> Como ele divide o trabalho</h3>
+        <p class="text-neutral-300 mb-4">O segredo não é "um agente gigante", e sim <strong class="text-blue-400">muitos agentes pequenos</strong> coordenados por um script que o próprio Claude escreve na hora.</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Trabalhos divisíveis (varrer milhares de arquivos, processar lotes) caem como uma luva.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Processa em paralelo muito bem — o tempo total despenca.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>É novo: ainda está achando o lugar certo no dia a dia.</span></li>
+        </ul>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+        <p class="text-neutral-300">Como usa <strong class="text-primary">muitos tokens</strong>, reserve dynamic workflows para tarefas realmente grandes e divisíveis. Para algo pequeno, um único agente ou alguns subagents já bastam.</p>
+      </div>
+
+      <!-- Conceitos-chave -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Script gerado</div><p class="text-neutral-400 text-xs">O Claude escreve na hora.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Até 1.000</div><p class="text-neutral-400 text-xs">Agentes em paralelo.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Token-intensive</div><p class="text-neutral-400 text-xs">Use em tarefas grandes.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Novo</div><p class="text-neutral-400 text-xs">Ainda achando o lugar.</p></div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 — Git Worktrees -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-3">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
+        <div>
+          <span class="text-xs font-bold text-blue-400 tracking-wider">B TIER · ISOLAMENTO</span>
+          <h2 class="text-2xl font-bold">🌿 Git Worktrees</h2>
+        </div>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Quando vários agentes trabalham no mesmo repositório ao mesmo tempo, o risco é óbvio: <strong class="text-blue-400">colisão</strong>. Git Worktrees resolve isso rodando cada agente numa <strong class="text-blue-400">cópia isolada</strong> do repo, para que eles nunca pisem um no trabalho do outro, e <strong class="text-blue-400">mergeia tudo no fim</strong>. É o complemento natural dos dynamic workflows.
+      </p>
+
+      <!-- Code box -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Exemplo</span>
+          <span class="text-xs text-blue-400 font-mono">cópias isoladas · merge no fim</span>
+        </div>
+        <pre class="font-mono text-sm text-neutral-300 leading-relaxed overflow-x-auto">main
+├─ <span class="text-blue-400">worktree/feature-a</span>   agente 1  (isolado)
+├─ <span class="text-blue-400">worktree/feature-b</span>   agente 2  (isolado)
+└─ <span class="text-blue-400">worktree/fix-c</span>       agente 3  (isolado)
+
+<span class="text-neutral-500"># cada um trabalha sem colidir → merge de volta na main</span></pre>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">✓ Quando vale muito</h4>
+          <ul class="space-y-3 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Trabalhando em time no mesmo repo.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Várias features tocadas ao mesmo tempo.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Agentes paralelos que não podem se atrapalhar.</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ O que evitar</h4>
+          <ul class="space-y-3 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Vários agentes editando a MESMA branch ao vivo.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Esperar paralelismo sem isolar — vira conflito.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Esquecer de mergear no fim e perder o trabalho.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Cópia isolada</div><p class="text-neutral-400 text-xs">Um worktree por agente.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Sem colisão</div><p class="text-neutral-400 text-xs">Ninguém pisa no outro.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Merge no fim</div><p class="text-neutral-400 text-xs">Tudo volta junto.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Time</div><p class="text-neutral-400 text-xs">Várias features de uma vez.</p></div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 — Ultrareview -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-3">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
+        <div>
+          <span class="text-xs font-bold text-blue-400 tracking-wider">B TIER · REVIEW NA NUVEM</span>
+          <h2 class="text-2xl font-bold">🛡️ Ultrareview</h2>
+        </div>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Ultrareview é um <strong class="text-blue-400">slash command</strong> que sobe uma <strong class="text-blue-400">frota de agentes na nuvem</strong> (no estilo code review) para revisar o seu código. O diferencial: cada agente <strong class="text-blue-400">verifica cada bug antes de reportar</strong>, o que reduz o ruído de falsos positivos que assola revisões automáticas comuns.
+      </p>
+
+      <!-- Timeline -->
+      <div class="space-y-6 mb-6">
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">1</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Você dispara o comando</h4>
+            <p class="text-neutral-300 text-sm">Roda o slash command sobre o diff/projeto; o trabalho vai para a nuvem em vez de travar o terminal.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">2</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">A frota verifica em paralelo</h4>
+            <p class="text-neutral-300 text-sm">Vários agentes analisam ao mesmo tempo e cada bug suspeito é checado antes de virar relatório.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">3</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Você recebe o que importa</h4>
+            <p class="text-neutral-300 text-sm">Em vez de uma lista cheia de ruído, chegam achados já verificados — mais sinal, menos falso positivo.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+        <p class="text-neutral-300">Por rodar na <strong class="text-primary">nuvem</strong>, você dispara o ultrareview e continua trabalhando no terminal. Pense nele para o review pesado antes de um merge importante.</p>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Slash command</div><p class="text-neutral-400 text-xs">Um comando dispara tudo.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Frota na nuvem</div><p class="text-neutral-400 text-xs">Não trava o terminal.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Verifica antes</div><p class="text-neutral-400 text-xs">Cada bug é checado.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Menos ruído</div><p class="text-neutral-400 text-xs">Mais sinal por achado.</p></div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 — /deep-research -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-3">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
+        <div>
+          <span class="text-xs font-bold text-blue-400 tracking-wider">B TIER · PESQUISA</span>
+          <h2 class="text-2xl font-bold">🔬 /deep-research & Advanced Research</h2>
+        </div>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Você pede uma pesquisa e ele <strong class="text-blue-400">invoca automaticamente um dynamic workflow</strong>, <strong class="text-blue-400">espalha buscas na web</strong> (e nos seus apps conectados) e devolve <strong class="text-blue-400">UM relatório citado</strong>. É o paralelismo do tópico 1 aplicado a pesquisa: dezenas de buscas ao mesmo tempo, sintetizadas numa resposta com fontes.
+      </p>
+
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📚</span> O que acontece por baixo</h3>
+        <p class="text-neutral-300 mb-4">Em vez de uma busca de cada vez, ele orquestra muitas em paralelo e só então redige — com referências.</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Invoca um dynamic workflow sem você precisar pedir explicitamente.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Busca na web e também nos seus apps/conectores.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Entrega um único relatório <strong>citado</strong>, não 30 abas para você ler.</span></li>
+        </ul>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+        <p class="text-neutral-300">Trate como uma <strong class="text-primary">pesquisa de verdade</strong>: peça escopo, perguntas-guia e fontes preferidas. Quanto mais clara a pergunta, melhor o relatório citado de volta.</p>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Auto-workflow</div><p class="text-neutral-400 text-xs">Invoca dynamic workflow.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Web + apps</div><p class="text-neutral-400 text-xs">Busca onde você conecta.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Um relatório</div><p class="text-neutral-400 text-xs">Citado, não 30 abas.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Advanced</div><p class="text-neutral-400 text-xs">Mesmo motor, mais fundo.</p></div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 — Claude in Chrome & Computer Use -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-3">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
+        <div>
+          <span class="text-xs font-bold text-blue-400 tracking-wider">B TIER · AÇÃO NA TELA</span>
+          <h2 class="text-2xl font-bold">🖱️ Claude in Chrome & Computer Use</h2>
+        </div>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        <strong class="text-blue-400">Claude in Chrome</strong> é um painel lateral que <strong class="text-blue-400">clica, preenche formulários e age entre as abas</strong> do navegador. Já o <strong class="text-blue-400">Computer Use</strong> é o aponta-e-clica genérico: usa qualquer app na tela quando não existe um conector. Juntos, estendem o alcance do Claude para o que vive fora do terminal.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">✓ Claude in Chrome</h4>
+          <ul class="space-y-3 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Clica e navega entre abas como você faria.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Preenche formulários no painel lateral.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Ótimo quando o fluxo vive todo no navegador.</span></li>
+          </ul>
+        </div>
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">✓ Computer Use</h4>
+          <ul class="space-y-3 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Aponta-e-clica em qualquer aplicativo.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Plano B universal quando não há conector.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Usa a tela como um humano usaria.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+        <p class="text-neutral-300">Prefira <strong class="text-primary">conector</strong> quando existir (mais rápido e confiável); use o aponta-e-clica como recurso final, para apps que não têm integração.</p>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Painel lateral</div><p class="text-neutral-400 text-xs">Age dentro do Chrome.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Entre abas</div><p class="text-neutral-400 text-xs">Clica e preenche.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Computer Use</div><p class="text-neutral-400 text-xs">Aponta-e-clica geral.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Sem conector</div><p class="text-neutral-400 text-xs">Plano B universal.</p></div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 — O ecossistema B -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-3">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
+        <div>
+          <span class="text-xs font-bold text-blue-400 tracking-wider">B TIER · A COLA DO DIA</span>
+          <h2 class="text-2xl font-bold">🧱 O ecossistema B</h2>
+        </div>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Vários recursos do Tier B não brilham sozinhos, mas <strong class="text-blue-400">amarram o seu dia a dia</strong>: reaproveitam contexto, ajudam a retomar onde você parou e dão superfícies novas para o Claude agir. Vale conhecer todos de relance.
+      </p>
+
+      <!-- Code/mono box: lista compacta -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">O kit completo</span>
+          <span class="text-xs text-blue-400 font-mono">ecossistema · Tier B</span>
+        </div>
+        <pre class="font-mono text-sm text-neutral-300 leading-relaxed overflow-x-auto"><span class="text-blue-400">Projects</span>     workspaces: chats + arquivos + instruções juntos
+<span class="text-blue-400">Memory</span>       carrega contexto de chats antigos
+<span class="text-blue-400">/recap</span>       mostra o que a sessão fazia quando você volta
+<span class="text-blue-400">Artifacts</span>    renderiza num painel editável (+ Interactive Charts)
+<span class="text-neutral-500"># e ainda: Browser Recording · Claude for M365 · Mobile Push</span>
+<span class="text-neutral-500">#            Cross-Device Convo · Connectors Directory</span></pre>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">✓ Para que servem</h4>
+          <ul class="space-y-3 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span><strong>Projects:</strong> tudo de um trabalho num só workspace.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span><strong>Memory + /recap:</strong> retoma contexto sem reexplicar.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span><strong>Artifacts &amp; Charts:</strong> painel editável e gráficos no chat.</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Mal-entendidos comuns</h4>
+          <ul class="space-y-3 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Achar que <span class="font-mono">/recap</span> "lembra de tudo" — ele resume o estado da sessão.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Confundir Memory com salvar arquivos manualmente.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Ignorar o Connectors Directory e reinventar integrações.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+        <p class="text-neutral-300">O <span class="font-mono">/recap</span> é especialmente ótimo <strong class="text-primary">com muitas abas abertas</strong>: ao voltar a uma sessão, ele te mostra o que estava em andamento antes de você continuar.</p>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Projects</div><p class="text-neutral-400 text-xs">Workspace tudo-junto.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Memory</div><p class="text-neutral-400 text-xs">Contexto de chats antigos.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">/recap</div><p class="text-neutral-400 text-xs">Retoma onde parou.</p></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Artifacts</div><p class="text-neutral-400 text-xs">Painel editável + charts.</p></div>
+      </div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🏁</span> Resumo do módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Dynamic Workflows</strong><span class="text-neutral-400"> — script que sobe até 1.000 agentes em paralelo; token-intensive.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Git Worktrees</strong><span class="text-neutral-400"> — cópias isoladas do repo sem colisão, merge no fim.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Ultrareview</strong><span class="text-neutral-400"> — frota de review na nuvem que verifica cada bug antes de reportar.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">/deep-research</strong><span class="text-neutral-400"> — buscas paralelas na web e apps → um relatório citado.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Chrome & Computer Use</strong><span class="text-neutral-400"> — age no navegador e aponta-e-clica em qualquer app.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Ecossistema B</strong><span class="text-neutral-400"> — Projects, Memory, /recap, Artifacts e companhia.</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-blue-400 mb-2">A seguir: as menções honrosas</h3>
+          <p class="text-neutral-300">O módulo 2.2 reúne o Tier A — os recursos que quase entraram no Top 12, do Google Workspace pelo terminal à camada de visibilidade e economia.</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para a Trilha 2</a>
+          <a href="modulo-2-2.html" class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors">Módulo 2.2 · Quase no topo →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>🏆 Claude Code Tier S · <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> · 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+
+</body>
+</html>

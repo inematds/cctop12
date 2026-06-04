@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code Tier S — os 12 recursos que mudam seu dia | INEMA.CLUB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: emerald (T1) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+    /* Light accent: blue (T2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.06); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    /* Light accent: purple (T3) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.06); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    /* Light - amber (tier S accent on landing) */
+    html:not(.dark) .text-amber-400 { color: #b45309; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(180,83,9,0.12); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(180,83,9,0.25); }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.5 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.3s} .wf-a:nth-child(3){animation-delay:.6s}
+      .wf-a:nth-child(4){animation-delay:.9s} .wf-a:nth-child(5){animation-delay:1.2s}
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <!-- NAV -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🏆</span><span class="font-bold text-lg hidden sm:inline">Claude Code Tier S</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="curso/trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">A Fundação</span></a>
+          <a href="curso/trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Produtividade</span></a>
+          <a href="curso/trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">O Top 12</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- HERO -->
+    <section class="py-16 sm:py-24">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="text-7xl mb-6">🏆</div>
+          <span class="inline-block text-xs font-bold text-amber-400 bg-amber-500/20 px-3 py-1 rounded-full mb-4">500+ HORAS NO ECOSSISTEMA · TIER LIST COMPLETA</span>
+          <h1 class="text-4xl sm:text-5xl font-extrabold text-neutral-100 mb-4 leading-tight">Claude Code Tier S</h1>
+          <p class="text-xl sm:text-2xl font-semibold text-purple-400 mb-6">Os 12 recursos que mudam o seu dia — e o mapa de todos os outros</p>
+          <p class="text-neutral-300 text-lg leading-relaxed mb-8">
+            Todo recurso do Claude ranqueado de D a S, com o <strong class="text-amber-400">Top 12</strong> em contagem regressiva até o #1. Não por hype — por quanto cada um muda o seu trabalho de verdade. Curado para quem faz <strong class="text-emerald-400">trabalho de conhecimento e automação</strong>.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-start">
+            <a href="curso/trilha3/index.html" class="inline-flex items-center px-6 py-3 rounded-xl bg-purple-500/20 border border-purple-500/30 text-purple-400 font-semibold hover:bg-purple-500/30 transition-colors">
+              Ir direto ao Top 12 →
+            </a>
+            <a href="#trilhas" class="inline-flex items-center px-6 py-3 rounded-xl bg-dark-800 border border-dark-600 text-neutral-300 font-semibold hover:bg-dark-700 transition-colors">
+              Ver as 3 trilhas
+            </a>
+          </div>
+        </div>
+
+        <!-- HERO SVG — escada de tiers D→S -->
+        <div class="rounded-2xl border border-amber-500/30 bg-dark-900/40 p-4">
+          <svg viewBox="0 0 480 360" class="w-full h-auto" role="img" aria-label="Escada de tiers de D até S: cada degrau sobe em valor, o topo S brilha e abriga o Top 12" font-family="Inter,sans-serif" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="lp-grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+                <circle cx="0.5" cy="0.5" r="0.5" fill="#374151" opacity="0.6"/>
+              </pattern>
+              <linearGradient id="lp-gold" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#f59e0b"/>
+              </linearGradient>
+              <filter id="lp-glow" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <rect width="480" height="360" fill="#0d1117" rx="12"/>
+            <rect width="480" height="360" fill="url(#lp-grid)" rx="12"/>
+            <!-- linha tracejada de subida -->
+            <path d="M70,300 L150,250 L230,200 L310,150 L390,92" fill="none" stroke="#f59e0b" stroke-width="1.6" stroke-dasharray="7 6" opacity="0.5"/>
+            <!-- degrau D -->
+            <rect x="36" y="288" width="92" height="46" rx="10" fill="#26201a" stroke="#9ca3af" stroke-width="1.5"/>
+            <text x="82" y="309" text-anchor="middle" fill="#e5e7eb" font-size="14" font-weight="700">D</text>
+            <text x="82" y="325" text-anchor="middle" fill="#9ca3af" font-size="9">fundação</text>
+            <!-- degrau C -->
+            <rect x="120" y="238" width="92" height="46" rx="10" fill="#1a1230" stroke="#c084fc" stroke-width="1.5"/>
+            <text x="166" y="259" text-anchor="middle" fill="#c084fc" font-size="14" font-weight="700">C</text>
+            <text x="166" y="275" text-anchor="middle" fill="#d8b4fe" font-size="9">cowork/web</text>
+            <!-- degrau B -->
+            <rect x="204" y="188" width="92" height="46" rx="10" fill="#0e1622" stroke="#60a5fa" stroke-width="1.5"/>
+            <text x="250" y="209" text-anchor="middle" fill="#60a5fa" font-size="14" font-weight="700">B</text>
+            <text x="250" y="225" text-anchor="middle" fill="#93c5fd" font-size="9">muito útil</text>
+            <!-- degrau A -->
+            <rect x="288" y="138" width="92" height="46" rx="10" fill="#0e2018" stroke="#34d399" stroke-width="1.5"/>
+            <text x="334" y="159" text-anchor="middle" fill="#34d399" font-size="14" font-weight="700">A</text>
+            <text x="334" y="175" text-anchor="middle" fill="#6ee7b7" font-size="9">honorável</text>
+            <!-- degrau S (topo, glow) -->
+            <g filter="url(#lp-glow)"><rect x="360" y="70" width="100" height="56" rx="12" fill="#1f1604" stroke="url(#lp-gold)" stroke-width="2.5"/></g>
+            <text x="410" y="95" text-anchor="middle" fill="#fbbf24" font-size="18" font-weight="700">S</text>
+            <text x="410" y="113" text-anchor="middle" fill="#fcd9a0" font-size="9.5">o Top 12</text>
+            <!-- coroa -->
+            <text x="410" y="58" text-anchor="middle" font-size="20">👑</text>
+            <!-- pulsos no topo -->
+            <circle cx="410" cy="98" r="40" fill="none" stroke="#fbbf24" stroke-width="1" opacity="0.16" class="wf-a"/>
+            <circle cx="410" cy="98" r="54" fill="none" stroke="#fbbf24" stroke-width="0.8" opacity="0.10" class="wf-a"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMO RANQUEAMOS -->
+    <section class="py-12 mb-8">
+      <h2 class="text-3xl font-bold text-neutral-100 mb-4">A régua: como tudo foi ranqueado</h2>
+      <p class="text-neutral-300 text-lg leading-relaxed mb-6">
+        Esta não é uma lista por popularidade ou por "quão legal" um recurso parece. O critério é um só: <strong class="text-amber-400">quanto cada recurso muda o seu dia de trabalho de verdade</strong>. A lente é trabalho de conhecimento e automação — não benchmarks, não construir apps. Você vai discordar de alguns. Ótimo: o valor de um recurso depende de como você usa.
+      </p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="bg-dark-800 rounded-2xl p-5 border border-amber-500/30">
+          <div class="text-2xl mb-2">📐</div>
+          <h3 class="font-semibold text-amber-400 mb-1">Impacto no dia</h3>
+          <p class="text-neutral-400 text-sm">Muda muito a rotina? Sobe de tier. Simples assim.</p>
+        </div>
+        <div class="bg-dark-800 rounded-2xl p-5 border border-emerald-500/30">
+          <div class="text-2xl mb-2">🧠</div>
+          <h3 class="font-semibold text-emerald-400 mb-1">Lente certa</h3>
+          <p class="text-neutral-400 text-sm">Trabalho de conhecimento e automação — não engenharia pesada.</p>
+        </div>
+        <div class="bg-dark-800 rounded-2xl p-5 border border-blue-500/30">
+          <div class="text-2xl mb-2">🚫</div>
+          <h3 class="font-semibold text-blue-400 mb-1">Sem benchmark</h3>
+          <p class="text-neutral-400 text-sm">Nada de número sintético. Vale o que entrega na prática.</p>
+        </div>
+        <div class="bg-dark-800 rounded-2xl p-5 border border-purple-500/30">
+          <div class="text-2xl mb-2">💬</div>
+          <h3 class="font-semibold text-purple-400 mb-1">Discordância é boa</h3>
+          <p class="text-neutral-400 text-sm">Seu ranking pode mudar. O importante é conhecer cada recurso.</p>
+        </div>
+      </div>
+
+      <!-- mini board D->S -->
+      <div class="bg-dark-800 rounded-2xl border border-dark-600 p-6">
+        <h3 class="text-base font-semibold text-neutral-100 mb-4">O quadro inteiro, num relance</h3>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-center gap-3"><span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center flex-shrink-0">S</span><span class="text-neutral-300">O Top 12 — Skills, Status Line, Routines, Remote Control, /loop, Subagents, /rewind, Agent Teams, Auto Memory, /insights, Ultraplan, /goal</span></div>
+          <div class="flex items-center gap-3"><span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center flex-shrink-0">A</span><span class="text-neutral-300">Menções honrosas — Workspace CLI, Dispatch, Desktop App, Claude Design, Plan Mode, Hooks, Effort, Prompt Caching…</span></div>
+          <div class="flex items-center gap-3"><span class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center flex-shrink-0">B</span><span class="text-neutral-300">Muito úteis — Dynamic Workflows, Git Worktrees, Ultrareview, /deep-research, Computer Use, Projects, Memory…</span></div>
+          <div class="flex items-center gap-3"><span class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 font-bold flex items-center justify-center flex-shrink-0">C</span><span class="text-neutral-300">Cowork & web — Voice Mode, Cowork, Conectores Interativos, Local File Access, Citations…</span></div>
+          <div class="flex items-center gap-3"><span class="w-8 h-8 rounded-lg bg-dark-600 text-neutral-300 font-bold flex items-center justify-center flex-shrink-0">D</span><span class="text-neutral-400">Fundação — CLAUDE.md, /clear-/compact, Web Search, Permissions, Fast Mode, Themes, IDE…</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRILHAS -->
+    <section id="trilhas" class="py-12 mb-8">
+      <h2 class="text-3xl font-bold text-neutral-100 mb-2">As 3 trilhas</h2>
+      <p class="text-neutral-400 mb-8">Da fundação ao pódio. Pode começar pelo Top 12 ou subir a escada inteira.</p>
+
+      <div class="grid lg:grid-cols-3 gap-6">
+
+        <!-- TRILHA 1 -->
+        <div class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden flex flex-col">
+          <div class="bg-emerald-500/10 px-6 pt-6 pb-4 border-b border-emerald-500/30">
+            <span class="inline-block text-xs font-bold text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded-full mb-3">TRILHA 1 · TIER D + C</span>
+            <div class="text-3xl mb-2">🧱</div>
+            <h3 class="text-lg font-bold text-neutral-100">A Fundação</h3>
+            <p class="text-emerald-400 text-sm font-medium">O encanamento que sustenta tudo</p>
+          </div>
+          <div class="px-6 py-5 flex-1 flex flex-col">
+            <p class="text-neutral-400 text-sm mb-4 leading-relaxed">
+              Os recursos que ninguém elege "favorito" mas sem os quais nada funciona bem — e as ferramentas de Cowork, voz e web.
+            </p>
+            <ul class="space-y-2 mb-6 flex-1">
+              <li class="flex items-center gap-2 text-sm text-neutral-300"><span class="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-xs font-bold flex-shrink-0">1</span>1.1 — Encanamento essencial (Tier D)</li>
+              <li class="flex items-center gap-2 text-sm text-neutral-300"><span class="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-xs font-bold flex-shrink-0">2</span>1.2 — Cowork, voz e a web (Tier C)</li>
+            </ul>
+            <div class="flex justify-start">
+              <a href="curso/trilha1/index.html" class="inline-flex items-center px-4 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-sm font-semibold hover:bg-emerald-500/30 transition-colors">Entrar na trilha →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRILHA 2 -->
+        <div class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden flex flex-col">
+          <div class="bg-blue-500/10 px-6 pt-6 pb-4 border-b border-blue-500/30">
+            <span class="inline-block text-xs font-bold text-blue-400 bg-blue-500/20 px-2 py-0.5 rounded-full mb-3">TRILHA 2 · TIER B + A</span>
+            <div class="text-3xl mb-2">⚡</div>
+            <h3 class="text-lg font-bold text-neutral-100">Produtividade Real</h3>
+            <p class="text-blue-400 text-sm font-medium">Genuinamente úteis e quase no topo</p>
+          </div>
+          <div class="px-6 py-5 flex-1 flex flex-col">
+            <p class="text-neutral-400 text-sm mb-4 leading-relaxed">
+              Workflows paralelos, isolamento, revisão na nuvem — e as menções honrosas que quase entraram no Top 12.
+            </p>
+            <ul class="space-y-2 mb-6 flex-1">
+              <li class="flex items-center gap-2 text-sm text-neutral-300"><span class="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 text-xs font-bold flex-shrink-0">1</span>2.1 — Workflows, isolamento e review (Tier B)</li>
+              <li class="flex items-center gap-2 text-sm text-neutral-300"><span class="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 text-xs font-bold flex-shrink-0">2</span>2.2 — Quase no topo (Tier A)</li>
+            </ul>
+            <div class="flex justify-start">
+              <a href="curso/trilha2/index.html" class="inline-flex items-center px-4 py-2 rounded-lg bg-blue-500/20 border border-blue-500/30 text-blue-400 text-sm font-semibold hover:bg-blue-500/30 transition-colors">Entrar na trilha →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRILHA 3 -->
+        <div class="bg-dark-800 rounded-2xl border border-purple-500/30 overflow-hidden flex flex-col">
+          <div class="bg-purple-500/10 px-6 pt-6 pb-4 border-b border-purple-500/30">
+            <span class="inline-block text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded-full mb-3">TRILHA 3 · TIER S</span>
+            <div class="text-3xl mb-2">🏆</div>
+            <h3 class="text-lg font-bold text-neutral-100">O Top 12</h3>
+            <p class="text-purple-400 text-sm font-medium">Os recursos que mudaram tudo</p>
+          </div>
+          <div class="px-6 py-5 flex-1 flex flex-col">
+            <p class="text-neutral-400 text-sm mb-4 leading-relaxed">
+              A contagem regressiva do #12 ao #1. Os recursos que realmente mudaram o jeito de trabalhar — com o porquê de cada posição.
+            </p>
+            <ul class="space-y-2 mb-6 flex-1">
+              <li class="flex items-center gap-2 text-sm text-neutral-300"><span class="w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 text-xs font-bold flex-shrink-0">1</span>3.1 — Do #12 ao #7</li>
+              <li class="flex items-center gap-2 text-sm text-neutral-300"><span class="w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 text-xs font-bold flex-shrink-0">2</span>3.2 — O pódio: #6 ao #1</li>
+            </ul>
+            <div class="flex justify-start">
+              <a href="curso/trilha3/index.html" class="inline-flex items-center px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 text-sm font-semibold hover:bg-purple-500/30 transition-colors">Entrar na trilha →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- BÔNUS VISUAL: tier list deck + galeria -->
+    <section class="py-12 mb-8">
+      <h2 class="text-3xl font-bold text-neutral-100 mb-2">Bônus: a tier list visual</h2>
+      <p class="text-neutral-400 mb-8">Um deck futurista navegável com cada slide — e uma imagem de cada um para salvar ou compartilhar.</p>
+      <div class="grid lg:grid-cols-3 gap-4 mb-6">
+        <a href="recursos/imagens/19-S01-skills.png" target="_blank" class="group rounded-2xl border border-dark-600 overflow-hidden hover:border-amber-500/30 transition-colors">
+          <img src="recursos/imagens/19-S01-skills.png" alt="Slide #1 Skills" class="w-full aspect-video object-cover" loading="lazy">
+        </a>
+        <a href="recursos/imagens/20-quadro-completo.png" target="_blank" class="group rounded-2xl border border-dark-600 overflow-hidden hover:border-amber-500/30 transition-colors">
+          <img src="recursos/imagens/20-quadro-completo.png" alt="Quadro completo" class="w-full aspect-video object-cover" loading="lazy">
+        </a>
+        <a href="recursos/imagens/18-S02-statusline.png" target="_blank" class="group rounded-2xl border border-dark-600 overflow-hidden hover:border-amber-500/30 transition-colors">
+          <img src="recursos/imagens/18-S02-statusline.png" alt="Slide #2 Status Line" class="w-full aspect-video object-cover" loading="lazy">
+        </a>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-3 justify-start">
+        <a href="recursos/tier-list.html" target="_blank" class="inline-flex items-center px-5 py-2.5 rounded-xl bg-amber-500/20 border border-amber-500/30 text-amber-400 text-sm font-semibold hover:bg-amber-500/30 transition-colors">▶ Abrir o deck navegável</a>
+        <a href="recursos/imagens/" target="_blank" class="inline-flex items-center px-5 py-2.5 rounded-xl bg-dark-800 border border-dark-600 text-neutral-300 text-sm font-semibold hover:bg-dark-700 transition-colors">20 imagens dos slides</a>
+      </div>
+    </section>
+
+    <!-- STATS GLOBAIS -->
+    <section class="py-8 mb-8">
+      <div class="bg-dark-800 rounded-2xl border border-dark-600 p-8">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+          <div><div class="text-3xl font-extrabold text-emerald-400 mb-1">3</div><div class="text-neutral-400 text-sm">Trilhas</div></div>
+          <div><div class="text-3xl font-extrabold text-blue-400 mb-1">6</div><div class="text-neutral-400 text-sm">Módulos</div></div>
+          <div><div class="text-3xl font-extrabold text-purple-400 mb-1">36</div><div class="text-neutral-400 text-sm">Tópicos</div></div>
+          <div><div class="text-3xl font-extrabold text-primary mb-1">~5h</div><div class="text-neutral-400 text-sm">de conteúdo</div></div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-dark-600 text-center">
+          <span class="text-neutral-500 text-sm">Nível: Iniciante → Intermediário · pt-BR · baseado em 500+ horas de uso real</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm space-y-1">
+      <p>🏆 Claude Code Tier S — os 12 recursos que mudam seu dia · <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> · 2026</p>
+      <p>Ranking e tier list inspirados em análise prática do ecossistema Claude. Conteúdo educacional INEMA.CLUB.</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+
+</body>
+</html>
