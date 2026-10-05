@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 3.1 — Del #12 al #7 | Claude Code Tier S</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: purple (T3) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.06); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .text-amber-400 { color: #b45309; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(180,83,9,0.12); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(180,83,9,0.25); }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.5 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://inematds.github.io/cctop12/curso/trilha3/modulo-3-1.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/cctop12/en/curso/trilha3/modulo-3-1.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/cctop12/es/curso/trilha3/modulo-3-1.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/modulo-3-1.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha3/modulo-3-1.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-3-1.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🏆</span><span class="font-bold text-lg hidden sm:inline">Claude Code Tier S</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">La Fundación</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Productividad</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10" href="index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">El Top 12</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<div class="flex items-center space-x-2 text-sm text-neutral-400">
+<a class="hover:text-purple-400" href="../../index.html">Inicio</a>
+<span>/</span>
+<a class="hover:text-purple-400" href="index.html">Ruta 3</a>
+<span>/</span>
+<span class="text-purple-400">Módulo 3.1</span>
+</div>
+</nav>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MÓDULO 3.1 · TIER S</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">📉 Del #12 al #7</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">
+        La primera mitad del Top 12: objetivos que se cumplen solos, planificación en la nube, informes de tu propio uso, memoria automática, equipos de agentes y la máquina del tiempo de /rewind.
+      </p>
+<div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">6</div><div class="text-xs text-neutral-400">Temas</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">40</div><div class="text-xs text-neutral-400">Minutos</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Interm.</div><div class="text-xs text-neutral-400">Nivel</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Práctica</div><div class="text-xs text-neutral-400">Tipo</div></div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<h2 class="text-2xl font-bold mb-6">Contenido detallado</h2>
+<!-- TÓPICO 1 — #12 /goal -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#12 · S TIER</span>
+<h2 class="text-2xl font-bold">🎯 /goal</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Con el <span class="font-mono text-purple-400">/goal</span> tú defines uno <strong class="text-purple-400">objetivo con un criterio de "hecho"</strong> y Claude <strong class="text-purple-400">no se detiene</strong> — tiene verificación integrada — hasta que se cumpla la condición. El secreto es un "done" lo más <strong class="text-purple-400">objetivo</strong> posible: la subjetividad es su punto débil. Lo pones en marcha, te vas a dormir o a almorzar y vuelves con el resultado y mucha confianza.
+      </p>
+<!-- SVG verification loop (obrigatório no módulo) -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+<svg aria-label="/goal ejecuta un ciclo de trabajo y verificación: lo intenta, comprueba el criterio de finalización y solo sale del ciclo cuando se cumple la condición" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 1000 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m31-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#c084fc"></stop><stop offset="1" stop-color="#a855f7"></stop></lineargradient>
+<filter height="180%" id="m31-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m31-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#a855f7" opacity="0.12" r="1.3"></circle></pattern>
+<marker id="m31-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#c084fc"></path></marker>
+<marker id="m31-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m31-grid)" height="240" width="1000" x="0" y="0"></rect>
+<g fill="none" opacity="0.65" stroke="#c084fc" stroke-width="2">
+<path d="M256,120 L388,120" marker-end="url(#m31-ah)"></path>
+<path d="M644,120 L756,120" marker-end="url(#m31-ah)"></path>
+</g>
+<g fill="none" opacity="0.55" stroke="#38bdf8" stroke-width="1.8">
+<path d="M516,158 C516,214 300,214 188,214 L188,152" marker-end="url(#m31-ahc)"></path>
+</g>
+<text fill="#38bdf8" font-size="12" text-anchor="middle" x="352" y="206">todavía no cumple el criterio → inténtalo de nuevo</text>
+<g filter="url(#m31-glow)"><rect fill="#1a1230" height="64" rx="14" stroke="url(#m31-grad)" stroke-width="2.5" width="148" x="40" y="88"></rect></g>
+<text fill="#c084fc" font-size="17" font-weight="600" text-anchor="middle" x="114" y="114">/goal</text>
+<text fill="#d8b4fe" font-size="11" text-anchor="middle" x="114" y="134">objetivo done</text>
+<g class="wf-a"><rect fill="#0e1b26" height="56" rx="12" stroke="#38bdf8" stroke-width="2" width="128" x="388" y="92"></rect><text fill="#bfe6ff" font-size="14" font-weight="600" text-anchor="middle" x="452" y="118">trabaja</text><text fill="#7fd0ff" font-size="11" text-anchor="middle" x="452" y="136">inténtalo una vez</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="56" rx="12" stroke="#38bdf8" stroke-width="2" width="128" x="516" y="92"></rect><text fill="#bfe6ff" font-size="14" font-weight="600" text-anchor="middle" x="580" y="118">verifica</text><text fill="#7fd0ff" font-size="11" text-anchor="middle" x="580" y="136">comprueba lo "hecho"</text></g>
+<g filter="url(#m31-glow)"><rect fill="#1a1230" height="64" rx="14" stroke="url(#m31-grad)" stroke-width="2.5" width="156" x="756" y="88"></rect></g>
+<text fill="#c084fc" font-size="16" font-weight="600" text-anchor="middle" x="834" y="116">Completado</text>
+<text fill="#d8b4fe" font-size="11" text-anchor="middle" x="834" y="136">criterio cumplido</text>
+</svg>
+</div>
+<!-- Code box -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Ejemplo</span>
+<span class="text-xs text-purple-400 font-mono">criterio verificable</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 leading-relaxed overflow-x-auto"><span class="text-purple-400">/goal</span> pesquise X e não pare até 3 resultados que passem no critério
+
+<span class="text-neutral-500"># exemplo real: otimizar um elemento da página</span>
+<span class="text-purple-400">/goal</span> reduza o tempo até este elemento carregar a ~instantâneo
+<span class="text-neutral-500"># rodou ~1h30, tentando e verificando, até bater a meta</span></pre>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Buen criterio de "hecho"</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Carga en menos de X ms, medible.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>3 resultados que pasan una prueba automática.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Build en verde y todas las pruebas pasando.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Criterio débil (subjetivo)</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>"Adivinanzas muy difíciles" — ¿qué es difícil?</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>"Déjalo bonito" — sin criterio para parar.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Cualquier «listo» que dependa del gusto.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo práctico</h3>
+<p class="text-neutral-300">No necesitas ejecutarlo durante horas. Inicia un <span class="font-mono">/goal</span> antes de salir a almorzar y vuelve con el trabajo hecho con alta confianza. Dedica tiempo a escribir el criterio de parada: eso es lo que le permite al agente saber cuándo ganó.</p>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Objetivo Done</div><p class="text-neutral-400 text-xs">Criterio medible.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">No se detiene</div><p class="text-neutral-400 text-xs">Insiste hasta acertar.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Verificación</div><p class="text-neutral-400 text-xs">Verificación integrada.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Inícialo y déjalo correr</div><p class="text-neutral-400 text-xs">Vuelve con el resultado.</p></div>
+</div>
+</section>
+<!-- TÓPICO 2 — #11 Ultraplan -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#11 · S TIER</span>
+<h2 class="text-2xl font-bold">🗺️ Ultraplan</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        O <span class="font-mono text-purple-400">ultraplan</span> hace <strong class="text-purple-400">delegar la planificación a la nube</strong>, con varios agentes de planificación. Escribes "ultraplan", ves el efecto arcoíris, te pregunta si quieres ejecutarlo en la nube y te da un enlace. Allí <strong class="text-purple-400">clona el repo</strong>, calcula en la nube y tú traes el plan de vuelta al terminal, o lo ejecutas directamente en la web. Ideal para tareas <strong class="text-purple-400">grandes y ambiguas</strong>.
+      </p>
+<!-- Timeline -->
+<div class="space-y-6 mb-6">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">1</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Escribe "ultraplan"</h4>
+<p class="text-neutral-300 text-sm">Aparece el efecto arcoíris y te pregunta si quieres ejecutar la planificación en la nube.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">2</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Clona el repo y computa en la nube</h4>
+<p class="text-neutral-300 text-sm">Te da un enlace; varios agentes de planificación trabajan en la nube sobre una copia de tu repositorio.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">3</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Trae el plan de vuelta — o ejecútalo en la web</h4>
+<p class="text-neutral-300 text-sm">Importas el plan a la terminal local o lo ejecutas directamente en la web. Mientras tanto, sigues trabajando (background tasks).</p>
+</div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo práctico</h3>
+<p class="text-neutral-300">Usa el ultraplan precisamente cuando la tarea sea grande y esté poco definida — es ahí donde rinden varios planificadores en la nube. Como se ejecuta en segundo plano, inicia el plan y sigue con otra cosa en el terminal mientras la versión cloud piensa.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">En la nube</div><p class="text-neutral-400 text-xs">Delegar la planificación.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Clona el repo</div><p class="text-neutral-400 text-xs">Calcula sobre una copia.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Vuelve o web</div><p class="text-neutral-400 text-xs">Impórtalo o ejecútalo allí.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Background</div><p class="text-neutral-400 text-xs">Trabaja mientras planificas.</p></div>
+</div>
+</section>
+<!-- TÓPICO 3 — #10 /insights -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#10 · S TIER</span>
+<h2 class="text-2xl font-bold">📈 /insights</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        O <span class="font-mono text-purple-400">/insights</span> genera un <strong class="text-purple-400">informe HTML de los últimos 30 días</strong> de tu uso de Claude Code: qué hiciste mucho, qué está mal, qué features usar más y qué skills valdría la pena crear. Muestra <strong class="text-purple-400">mensajes y sesiones</strong> del período, quick wins y workflows ambiciosos, todo con un índice navegable.
+      </p>
+<!-- Timeline (fluxo do /insights) -->
+<div class="space-y-6 mb-6">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">1</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Lee tus últimos 30 días</h4>
+<p class="text-neutral-300 text-sm">Revisa mensajes y sesiones del período para entender cómo usas realmente Claude Code.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">2</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Combina lo que funciona y lo que estorba</h4>
+<p class="text-neutral-300 text-sm">Señala qué está bien, qué está mal, qué funciones se usan poco y qué skills marcarían la diferencia.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">3</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Entrega un HTML con índice navegable</h4>
+<p class="text-neutral-300 text-sm">Quick wins a corto plazo y workflows ambiciosos a largo plazo, organizados para que puedas explorarlos.</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Lo que descubres</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Lo que haces mucho (y podría convertirse en una skill).</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Funciones que todavía no usas bien.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Victorias rápidas y workflows ambiciosos.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Sin /insights</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Repetir los mismos problemas sin darse cuenta.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Dejar funciones valiosas sin usar.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Nunca ver cómo evoluciona tu uso.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo práctico</h3>
+<p class="text-neutral-300">Ejecuta el <span class="font-mono">/insights</span> de vez en cuando — no todos los días. Es excelente como revisión periódica para ver cómo evoluciona tu uso y detectar los próximos puntos de mejora.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Informe HTML</div><p class="text-neutral-400 text-xs">Índice navegable.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">30 días</div><p class="text-neutral-400 text-xs">Mensajes y sesiones.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Quick wins</div><p class="text-neutral-400 text-xs">Y workflows ambiciosos.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Revisión</div><p class="text-neutral-400 text-xs">Mira cómo evoluciona el uso.</p></div>
+</div>
+</section>
+<!-- TÓPICO 4 — #9 Auto Memory -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#9 · S TIER</span>
+<h2 class="text-2xl font-bold">🧠 Memoria automática</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Antes llamada «autodream», Auto Memory es Claude <strong class="text-purple-400">mejorando la memoria automáticamente sin que tú lo pidas</strong>. En cada intervalo de sesiones, conversaciones o tiempo, revisa lo que se hizo y <strong class="text-purple-400">se actualiza</strong> — «sueña» y se vuelve más inteligente, <strong class="text-purple-400">por repositorio</strong>.
+      </p>
+<div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><span class="mr-2">🌙</span> Cómo funciona el «sueño»</h3>
+<p class="text-neutral-300 mb-4">La memoria deja de ser algo que solo alimentas a mano: el agente actualiza por su cuenta lo que aprendió sobre tu proyecto.</p>
+<ul class="space-y-2 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span>Funciona <strong>en intervalos</strong> — de sesiones, conversaciones o tiempo.</span></li>
+<li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span>É <strong>por repositorio</strong>: cada proyecto acumula su propia memoria.</span></li>
+<li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span>Cuanto más lo usas, más inteligente se vuelve en ese contexto.</span></li>
+</ul>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Verificar / activar</span>
+<span class="text-xs text-purple-400 font-mono">por repositorio</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 leading-relaxed overflow-x-auto"><span class="text-purple-400">/memory</span>
+<span class="text-neutral-500"># veja se a auto memory está ligada; ative se quiser.</span>
+<span class="text-neutral-500"># há docs sobre como o processo funciona.</span></pre>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo práctico</h3>
+<p class="text-neutral-300">Revisa en <span class="font-mono">/memory</span> si la auto memory está activada en tu repositorio principal. Una vez activada, trabaja en segundo plano: cada vez que vuelves, el agente ya conoce un poco mejor el proyecto.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Automática</div><p class="text-neutral-400 text-xs">Sin que lo pidas.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">En intervalos</div><p class="text-neutral-400 text-xs">Sesiones, conversaciones, tiempo.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Por repo</div><p class="text-neutral-400 text-xs">Memoria por proyecto.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">/memory</div><p class="text-neutral-400 text-xs">Verifica y activa.</p></div>
+</div>
+</section>
+<!-- TÓPICO 5 — #8 Agent Teams -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#8 · S TIER</span>
+<h2 class="text-2xl font-bold">👥 Agent Teams</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Uno de los recursos favoritos — y <strong class="text-purple-400">intensivo en tokens</strong>. Agent Teams es un equipo <strong class="text-purple-400">nombrado</strong> de agentes que se ejecutan en paralelo y <strong class="text-purple-400">conversan entre sí</strong>: creas personas (principiante, CEO, etc.); analizan, hacen lluvia de ideas y <strong class="text-purple-400">debaten en rondas</strong> hasta ponerse de acuerdo. Es la mejor forma de escuchar perspectivas diferentes sobre la misma idea.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Buen uso de Agent Teams</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Lluvia de ideas con personajes (principiante, CEO, escéptico).</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Debatir los pros y los contras hasta llegar a un consenso.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Escuchar distintas perspectivas sobre una decisión.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ No confundir</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>No son subagents: estos <strong>conversan</strong> entre sí.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>No es barato: consume muchos tokens.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Es experimental: hay que habilitarlo en settings.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Habilitar e invocar</span>
+<span class="text-xs text-purple-400 font-mono">experimental · .claude</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 leading-relaxed overflow-x-auto"><span class="text-neutral-500"># habilite o recurso experimental no settings (.claude)</span>
+
+<span class="text-neutral-500"># depois, invoque em linguagem natural:</span>
+monte um time de agentes — um iniciante, um CEO e um cético —
+e debatam essa ideia em rodadas até concordarem</pre>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo práctico</h3>
+<p class="text-neutral-300">Como consume muchos tokens, reserva Agent Teams para decisiones que realmente se beneficien del debate. Asígnales personas con puntos de vista muy distintos: la fricción entre ellas es precisamente lo que genera las mejores perspectivas.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Equipo con nombre</div><p class="text-neutral-400 text-xs">Personas con nombre.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Debaten</div><p class="text-neutral-400 text-xs">Rondas hasta llegar a un acuerdo.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Intensivo en tokens</div><p class="text-neutral-400 text-xs">Úsalo con criterio.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Experimental</div><p class="text-neutral-400 text-xs">Habilítala en settings.</p></div>
+</div>
+</section>
+<!-- TÓPICO 6 — #7 /rewind -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#7 · S TIER</span>
+<h2 class="text-2xl font-bold">⏪ /rewind</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        O <span class="font-mono text-purple-400">/rewind</span> es la máquina del tiempo: vuelve al <strong class="text-purple-400">código Y la conversación</strong> a un checkpoint anterior, y tú eliges el prompt o el punto exacto. Como todo se almacena en caché y se vuelve a cargar, <strong class="text-purple-400">rebobinar</strong> cuando algo salió mal, es mejor que decir "no, hazlo así" — evita acumular contexto sucio y preserva la calidad.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Rebobinar (mejor)</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Vuelve al punto exacto anterior al error.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Limpia el contexto contaminado del intento fallido.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>El código y la conversación vuelven juntos y coherentes.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ «No, hazlo así» (peor)</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Acumula un error sobre otro.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Arrastra el contexto contaminado hacia adelante.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>La calidad va bajando con cada corrección.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Uso</span>
+<span class="text-xs text-purple-400 font-mono">código + conversación</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 leading-relaxed overflow-x-auto"><span class="text-purple-400">/rewind</span>
+<span class="text-neutral-500"># escolha o prompt / checkpoint exato para onde voltar.</span>
+<span class="text-neutral-500"># código e conversa retornam juntos àquele estado.</span></pre>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo práctico</h3>
+<p class="text-neutral-300">Cuando una respuesta tomó el rumbo equivocado, lo correcto es <span class="font-mono">/rewind</span> — no corregir encima. Volver al checkpoint mantiene limpia la ventana y suele dar un resultado mejor que intentar arreglarlo en un contexto saturado.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Código + conversación</div><p class="text-neutral-400 text-xs">Vuelven juntos.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Punto exacto</div><p class="text-neutral-400 text-xs">Elige el prompt.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Contexto limpio</div><p class="text-neutral-400 text-xs">Sin acumular desorden.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Calidad</div><p class="text-neutral-400 text-xs">Mejor que corregir.</p></div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🏁</span> Resumen del módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">/goal (#12)</strong><span class="text-neutral-400"> — objetivo con un «listo» objetivo; no se detiene hasta verificar la condición.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Ultraplan (#11)</strong><span class="text-neutral-400"> — planificación en la nube con varios agentes; clona el repo y vuelve con el plan.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">/insights (#10)</strong><span class="text-neutral-400"> — informe HTML de tus 30 días: quick wins y qué mejorar.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Auto Memory (#9)</strong><span class="text-neutral-400"> — el agente «sueña» y mejora la memoria por sí solo, por repositorio.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Agent Teams (#8)</strong><span class="text-neutral-400"> — equipo con nombre que debate en rondas; experimental y consume muchos tokens.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">/rewind (#7)</strong><span class="text-neutral-400"> — devuelve el código y la conversación a un punto de control; mejor que corregir encima.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-purple-400 mb-2">Próximo módulo: 3.2 — El podio (#6 → #1)</h3>
+<p class="text-neutral-300">Ya vimos la primera mitad del Top 12. Ahora sube al podio: desde Subagents (#6) hasta la función n.º 1 de todas, Skills.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Volver a la Ruta</a>
+<a class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors" href="modulo-3-2.html">Siguiente: El podio →</a>
+</div>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>🏆 Claude Code Tier S · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+</body>
+</html>

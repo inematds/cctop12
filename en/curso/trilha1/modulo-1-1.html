@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 1.1 — Essential plumbing (Tier D) | Claude Code Tier S</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: emerald (T1) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .text-amber-400 { color: #b45309; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(180,83,9,0.12); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(180,83,9,0.25); }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.5 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://inematds.github.io/cctop12/curso/trilha1/modulo-1-1.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/cctop12/en/curso/trilha1/modulo-1-1.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/cctop12/es/curso/trilha1/modulo-1-1.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha1/modulo-1-1.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-1-1.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha1/modulo-1-1.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🏆</span><span class="font-bold text-lg hidden sm:inline">Claude Code Tier S</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10" href="index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">The Foundation</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Productivity</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">The Top 12</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<div class="flex items-center space-x-2 text-sm text-neutral-400">
+<a class="hover:text-emerald-400" href="../../index.html">Start</a>
+<span>/</span>
+<a class="hover:text-emerald-400" href="index.html">Track 1</a>
+<span>/</span>
+<span class="text-emerald-400">Module 1.1</span>
+</div>
+</nav>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MODULE 1.1 · TIER D</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🧱 Essential plumbing</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">
+        The foundation nobody picks as a favorite, but nothing works well without it. Memory files, the context cycle, web search, permissions, uploads, and the rest of the plumbing — the essentials that support everything that follows.
+      </p>
+<div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">6</div><div class="text-xs text-neutral-400">Topics</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">45</div><div class="text-xs text-neutral-400">Minutes</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Basic</div><div class="text-xs text-neutral-400">Level</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Base</div><div class="text-xs text-neutral-400">Type</div></div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<h2 class="text-2xl font-bold mb-6">Detailed content</h2>
+<!-- TÓPICO 1 — CLAUDE.md -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">1</span>
+<div>
+<span class="text-xs font-bold text-emerald-400 tracking-wider">TIER D · FOUNDATION</span>
+<h2 class="text-2xl font-bold">📄 CLAUDE.md (Memory Files)</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        O <span class="font-mono text-emerald-400">CLAUDE.md</span> is the file Claude reads in <strong class="text-emerald-400">every session</strong> to get to know your project. It's not flashy, no one picks it as a favorite—but it's the <strong class="text-emerald-400">groundwork</strong>, the bare minimum. Without it configured, the experience simply isn't good: Claude starts from scratch every day, unaware of your rules, your stack, or how you work.
+      </p>
+<!-- SVG: arquivo lido em toda sessão -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+<svg aria-label="A CLAUDE.md file loaded at the start of each Claude session, providing persistent context" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 1000 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m11-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#34d399"></stop><stop offset="1" stop-color="#10b981"></stop></lineargradient>
+<filter height="180%" id="m11-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m11-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#10b981" opacity="0.12" r="1.3"></circle></pattern>
+<marker id="m11-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#34d399"></path></marker>
+</defs>
+<rect fill="url(#m11-grid)" height="220" width="1000" x="0" y="0"></rect>
+<g filter="url(#m11-glow)"><rect fill="#0e2018" height="72" rx="12" stroke="url(#m11-grad)" stroke-width="2.5" width="180" x="40" y="74"></rect></g>
+<text fill="#34d399" font-size="16" font-weight="600" text-anchor="middle" x="130" y="104">CLAUDE.md</text>
+<text fill="#6ee7b7" font-size="12" text-anchor="middle" x="130" y="126">rules · stack · style</text>
+<g fill="none" opacity="0.6" stroke="#34d399" stroke-width="2">
+<path d="M220,110 L452,60" marker-end="url(#m11-ah)"></path>
+<path d="M220,110 L452,110" marker-end="url(#m11-ah)"></path>
+<path d="M220,110 L452,160" marker-end="url(#m11-ah)"></path>
+</g>
+<g font-size="13" font-weight="600">
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="170" x="452" y="44"></rect><text fill="#bfe6ff" text-anchor="middle" x="537" y="65">Monday session</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="170" x="452" y="94"></rect><text fill="#bfe6ff" text-anchor="middle" x="537" y="115">Tuesday session</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="170" x="452" y="144"></rect><text fill="#bfe6ff" text-anchor="middle" x="537" y="165">Wednesday session</text></g>
+</g>
+<g filter="url(#m11-glow)"><rect fill="#0e2018" height="72" rx="12" stroke="url(#m11-grad)" stroke-width="2.5" width="200" x="760" y="74"></rect></g>
+<text fill="#34d399" font-size="15" font-weight="600" text-anchor="middle" x="860" y="104">Claude already knows</text>
+<text fill="#6ee7b7" font-size="12" text-anchor="middle" x="860" y="126">of your project</text>
+<g fill="none" opacity="0.5" stroke="#38bdf8" stroke-width="1.8">
+<path d="M622,110 L760,110" marker-end="url(#m11-ah)"></path>
+</g>
+</svg>
+</div>
+<div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><span class="mr-2">🧩</span> What to put in the file</h3>
+<p class="text-neutral-300 mb-4">O <span class="font-mono text-emerald-400">CLAUDE.md</span> is plain text. It carries the context you don’t want to repeat every session:</p>
+<ul class="space-y-2 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Project stack, conventions, and commands (how to run it, how to test it).</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Style rules and preferences for how you want it to work.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>It can be global (applies to everything) or project-specific (at the repo root).</span></li>
+</ul>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">Start small: three or four lines can already change the experience. Refine them as you notice Claude making the same mistake — each recurring correction is a candidate for becoming a line in the <span class="font-mono">CLAUDE.md</span>.</p>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Every session</div><p class="text-neutral-400 text-xs">Read every time it opens.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Groundwork</div><p class="text-neutral-400 text-xs">The bare essentials.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Global or local</div><p class="text-neutral-400 text-xs">Everything or one project.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Refinable</div><p class="text-neutral-400 text-xs">Grows with use.</p></div>
+</div>
+</section>
+<!-- TÓPICO 2 — Context Lifecycle -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">2</span>
+<div>
+<span class="text-xs font-bold text-emerald-400 tracking-wider">TIER D · FOUNDATION</span>
+<h2 class="text-2xl font-bold">♻️ Context Lifecycle</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Three commands to manage the conversation: <span class="font-mono text-emerald-400">/clear</span> clears and starts from scratch, <span class="font-mono text-emerald-400">/compact</span> compacts what’s already been said and continues, and <span class="font-mono text-emerald-400">/resume</span> resumes a previous session. Basic features — but you use them every day because they control the session’s scarcest resource: context.
+      </p>
+<!-- Timeline -->
+<div class="space-y-6 mb-6">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold">1</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2"><span class="font-mono text-emerald-400">/clear</span> — clear</h4>
+<p class="text-neutral-300 text-sm">Clears the window and starts a new conversation. Use it when you change topics and don’t want to carry the old context along.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold">2</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2"><span class="font-mono text-emerald-400">/compact</span> — compact</h4>
+<p class="text-neutral-300 text-sm">Summarizes what has happened so far to free up space and continues the same task. Ideal when the context window is filling up but you’re not done.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold">3</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2"><span class="font-mono text-emerald-400">/resume</span> — resume</h4>
+<p class="text-neutral-300 text-sm">Return to a previous session and pick up where you left off. Good for tasks that span several days.</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">/clear</div><p class="text-neutral-400 text-xs">Clear the conversation.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">/compact</div><p class="text-neutral-400 text-xs">Summarize and continue.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">/resume</div><p class="text-neutral-400 text-xs">Resumes a session.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Daily</div><p class="text-neutral-400 text-xs">Useful every day.</p></div>
+</div>
+</section>
+<!-- TÓPICO 3 — Web Search & Fetch -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">3</span>
+<div>
+<span class="text-xs font-bold text-emerald-400 tracking-wider">TIER D · FOUNDATION</span>
+<h2 class="text-2xl font-bold">🔎 Web Search &amp; Fetch</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Claude has <strong class="text-emerald-400">native web search that cites sources</strong> — so you can verify where each piece of information came from. And <strong class="text-emerald-400">web fetch</strong> launches a search on the spot from a link. Basic, but still useful: it brings you current information without leaving the terminal.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ When to use it</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Check a recent fact that may be outside the model's knowledge.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Find and cite sources in an answer that needs to be verifiable.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Pull content from a specific URL you already have.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Don’t confuse</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Search scans the web; fetch starts from a specific link.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>It's not an internal code search tool — there are other tools for that.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>No citation isn't the same thing: the differentiator here is citing sources.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">When asking for something that depends on current information, explicitly ask Claude to <strong class="text-primary">search and cite</strong>. You gain traceability and reduce the risk of outdated responses.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Cites sources</div><p class="text-neutral-400 text-xs">Verifiable response.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Native</div><p class="text-neutral-400 text-xs">Without leaving the terminal.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Fetch</div><p class="text-neutral-400 text-xs">Part of a URL.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Current</div><p class="text-neutral-400 text-xs">Recent info, in the moment.</p></div>
+</div>
+</section>
+<!-- TÓPICO 4 — Permissions -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">4</span>
+<div>
+<span class="text-xs font-bold text-emerald-400 tracking-wider">TIER D · FOUNDATION</span>
+<h2 class="text-2xl font-bold">🔐 Permissions</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Permissions controls <strong class="text-emerald-400">what Claude can do without asking</strong>: which commands to run, which files to edit, which tools to use. It may seem minor, but it’s the <strong class="text-emerald-400">foundation of Auto Mode</strong> (Tier A): getting permissions right now is what unlocks autonomous workflows later.
+      </p>
+<div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><span class="mr-2">🛡️</span> The three modes</h3>
+<ul class="space-y-2 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Allow</strong> — Claude does it without asking.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Ask</strong> — it asks for confirmation before acting.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Deny</strong> — permanently blocks that action.</span></li>
+</ul>
+</div>
+<!-- Code box -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Example · settings</span>
+<span class="text-xs text-emerald-400 font-mono">allow / ask / deny</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 leading-relaxed overflow-x-auto"><span class="text-emerald-400">allow</span>: read commands you trust
+<span class="text-emerald-400">ask</span>: file edits and commands that change state
+<span class="text-emerald-400">deny</span>: destructive actions that should never run on their own</pre>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">Start restrictive and gradually allow what you trust. Every permission you grant carefully today means less friction tomorrow — and it’s the natural path to <strong class="text-primary">Auto Mode</strong>.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Allow</div><p class="text-neutral-400 text-xs">Without asking.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Ask</div><p class="text-neutral-400 text-xs">Asks for confirmation.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Deny</div><p class="text-neutral-400 text-xs">Blocks it permanently.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Auto Base</div><p class="text-neutral-400 text-xs">Unlocks Tier A.</p></div>
+</div>
+</section>
+<!-- TÓPICO 5 — File Uploads & Output Styles -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">5</span>
+<div>
+<span class="text-xs font-bold text-emerald-400 tracking-wider">TIER D · FOUNDATION</span>
+<h2 class="text-2xl font-bold">📎 File Uploads &amp; Output Styles</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Two simple things that make a big difference in your daily comfort: <strong class="text-emerald-400">drop files</strong> (images, PDFs, documents) directly in the conversation to provide rich context; and <strong class="text-emerald-400">output styles</strong>, which change how Claude formats responses to suit your preferences.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ File Uploads</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Drop in an image so Claude can see what you see.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Send PDFs and docs instead of copying and pasting excerpts.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Rich input = more precise, context-aware answers.</span></li>
+</ul>
+</div>
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Output Styles</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Change how Claude formats its responses.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>More concise, more detailed, more technical—your way.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Consistent output without repeating the instruction every time.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">Before describing a screen error in three paragraphs, drop in the <strong class="text-primary">screenshot</strong>. And if you always ask for the same response format, configure an output style and stop repeating yourself.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Images</div><p class="text-neutral-400 text-xs">Visual context.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">PDFs &amp; docs</div><p class="text-neutral-400 text-xs">No copying and pasting.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Format</div><p class="text-neutral-400 text-xs">Output your way.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Comfort</div><p class="text-neutral-400 text-xs">Less repetition.</p></div>
+</div>
+</section>
+<!-- TÓPICO 6 — O resto da base -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">6</span>
+<div>
+<span class="text-xs font-bold text-emerald-400 tracking-wider">TIER D · FOUNDATION</span>
+<h2 class="text-2xl font-bold">🧰 The rest of the foundation</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        A package of small plumbing pieces. None is a star on its own, but together they make the day more comfortable — shortcuts, visual comfort, and access from anywhere.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">Speed &amp; appearance</h4>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Fast Mode</strong> — Opus with faster output (<span class="font-mono">/fast</span>).</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Custom Themes</strong> — <span class="font-mono">/theme</span>: auto, dark, colorblind-friendly, and custom themes.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>IDE Extension</strong> — Claude Code in VS Code/JetBrains; good for getting started and for copying and pasting without the terminal’s weird wrapping.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Mobile Apps</strong> — iOS and Android.</span></li>
+</ul>
+</div>
+<div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">Shortcuts &amp; modes</h4>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Code Review</strong> — <span class="font-mono">/code-review</span> from the git diff.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Sandboxed Bash</strong> e <strong>Headless Mode</strong>.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Transcript Viewer</strong> (<span class="font-mono">Ctrl+O</span>) e <strong>History Search</strong> (<span class="font-mono">Ctrl+R</span>).</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Shell Mode</strong> (prefix <span class="font-mono">!</span>) e <strong>Voice Dictation</strong> (<span class="font-mono">/voice</span>).</span></li>
+</ul>
+</div>
+</div>
+<!-- Code box: atalhos -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Shortcuts to remember</span>
+<span class="text-xs text-emerald-400 font-mono">keyboard &amp; commands</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 leading-relaxed overflow-x-auto"><span class="text-emerald-400">Ctrl+O</span>  transcript viewer
+<span class="text-emerald-400">Ctrl+R</span>  history search
+<span class="text-emerald-400">!</span>       shell mode (roda comando direto)
+<span class="text-emerald-400">/fast</span>   saída mais rápida do Opus
+<span class="text-emerald-400">/theme</span>  troca o tema visual
+<span class="text-emerald-400">/voice</span>  ditado por voz</pre>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">Don't try to memorize everything at once. Adopt one or two per week — <span class="font-mono">Ctrl+R</span> and the prefix <span class="font-mono">!</span> tend to become habits the fastest.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Fast Mode</div><p class="text-neutral-400 text-xs">Faster Opus.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">IDE Extension</div><p class="text-neutral-400 text-xs">VS Code/JetBrains.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Shortcuts</div><p class="text-neutral-400 text-xs">Ctrl+O, Ctrl+R, !</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Everywhere</div><p class="text-neutral-400 text-xs">Desktop and mobile.</p></div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🏁</span> Module summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">CLAUDE.md</strong><span class="text-neutral-400"> — a memory file read every session; the groundwork that makes everything flow.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Context Lifecycle</strong><span class="text-neutral-400"> — /clear, /compact, and /resume to manage the conversation.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Web Search &amp; Fetch</strong><span class="text-neutral-400"> — native search that cites sources; fetch from a link.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Permissions</strong><span class="text-neutral-400"> — allow/ask/deny; the foundation of Auto Mode.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Uploads &amp; Output Styles</strong><span class="text-neutral-400"> — rich input and output in your format.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">The rest of the foundation</strong><span class="text-neutral-400"> — fast mode, themes, IDE, mobile, and the shortcuts you use every day.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-emerald-400 mb-2">Next: Module 1.2</h3>
+<p class="text-neutral-300">With the foundation in place, move up a level to Tier C: Cowork, voice, and the web — good features that are rarely used.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Back to Track 1</a>
+<a class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors" href="modulo-1-2.html">Module 1.2 · Cowork, voice, and the web →</a>
+</div>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>🏆 Claude Code Tier S · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+</body>
+</html>

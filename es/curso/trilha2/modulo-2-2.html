@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 2.2 — Casi en la cima (Tier A) | Claude Code Tier S</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: blue (T2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.06); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .text-amber-400 { color: #b45309; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(180,83,9,0.12); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(180,83,9,0.25); }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.5 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://inematds.github.io/cctop12/curso/trilha2/modulo-2-2.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/cctop12/en/curso/trilha2/modulo-2-2.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/cctop12/es/curso/trilha2/modulo-2-2.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/modulo-2-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha2/modulo-2-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-2-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🏆</span><span class="font-bold text-lg hidden sm:inline">Claude Code Tier S</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">La Fundación</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10" href="index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Productividad</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">El Top 12</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<div class="flex items-center space-x-2 text-sm text-neutral-400">
+<a class="hover:text-blue-400" href="../../index.html">Inicio</a>
+<span>/</span>
+<a class="hover:text-blue-400" href="index.html">Ruta 2</a>
+<span>/</span>
+<span class="text-blue-400">Módulo 2.2</span>
+</div>
+</nav>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">MÓDULO 2.2 · TIER A</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🥈 Cerca de la cima</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">
+        Las menciones honoríficas — funciones Tier A que casi entraron en el Top 12. Desde Google Workspace probado desde el terminal hasta los modos de planificación, los hooks, los niveles de esfuerzo y la capa de visibilidad que mantiene todo bajo control.
+      </p>
+<div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">6</div><div class="text-xs text-neutral-400">Temas</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">45</div><div class="text-xs text-neutral-400">Minutos</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Interm.</div><div class="text-xs text-neutral-400">Nivel</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Práctica</div><div class="text-xs text-neutral-400">Tipo</div></div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<h2 class="text-2xl font-bold mb-6">Contenido detallado</h2>
+<!-- TÓPICO 1 — Google Workspace CLI -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
+<div>
+<span class="text-xs font-bold text-blue-400 tracking-wider">A TIER · MENCIÓN HONORÍFICA Nº 1</span>
+<h2 class="text-2xl font-bold">🗂️ CLI de Google Workspace</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Imagina ejecutar <strong class="text-blue-400">Gmail, Drive, Docs, Sheets y Calendar desde el terminal</strong> — y, sobre esa base, construir tus propias <strong class="text-blue-400">skills</strong>. Es exactamente lo que permite Google Workspace CLI. Técnicamente no es una «feature» oficial de Claude, pero es tan útil que entra como <strong class="text-blue-400">mención honorífica n.º 1</strong>: la prueba viviente de que Claude dirige cualquier CLI.
+      </p>
+<!-- SVG: Claude dirige um CLI (obrigatório no módulo) -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+<svg aria-label="Claude en la terminal envía comandos a una CLI que controla Gmail, Drive, Docs, Sheets y Calendar" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 1000 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m22-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#60a5fa"></stop><stop offset="1" stop-color="#3b82f6"></stop></lineargradient>
+<filter height="180%" id="m22-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m22-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#3b82f6" opacity="0.12" r="1.3"></circle></pattern>
+<marker id="m22-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#60a5fa"></path></marker>
+<marker id="m22-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m22-grid)" height="200" width="1000" x="0" y="0"></rect>
+<g fill="none" opacity="0.6" stroke="#60a5fa" stroke-width="2">
+<path d="M196,100 L300,100" marker-end="url(#m22-ah)"></path>
+</g>
+<g fill="none" opacity="0.5" stroke="#38bdf8" stroke-width="1.8">
+<path d="M512,100 C600,100 620,40  720,40" marker-end="url(#m22-ahc)"></path>
+<path d="M512,100 C600,100 620,80  720,80" marker-end="url(#m22-ahc)"></path>
+<path d="M512,100 L720,120" marker-end="url(#m22-ahc)"></path>
+<path d="M512,100 C600,100 620,160 720,160" marker-end="url(#m22-ahc)"></path>
+</g>
+<g filter="url(#m22-glow)"><rect fill="#0e1622" height="64" rx="14" stroke="url(#m22-grad)" stroke-width="2.5" width="156" x="40" y="68"></rect></g>
+<text fill="#60a5fa" font-size="18" font-weight="600" text-anchor="middle" x="118" y="94">Claude</text>
+<text fill="#93c5fd" font-size="12" text-anchor="middle" x="118" y="114">en la terminal</text>
+<g filter="url(#m22-glow)"><rect fill="#0e1622" height="64" rx="14" stroke="url(#m22-grad)" stroke-width="2.5" width="212" x="300" y="68"></rect></g>
+<text fill="#60a5fa" font-size="16" font-weight="600" text-anchor="middle" x="406" y="94">Workspace CLI</text>
+<text fill="#93c5fd" font-size="11" text-anchor="middle" x="406" y="114">+ tus skills</text>
+<g font-size="13" font-weight="600">
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="200" x="720" y="24"></rect><text fill="#bfe6ff" text-anchor="middle" x="820" y="45">Gmail · Drive</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="200" x="720" y="64"></rect><text fill="#bfe6ff" text-anchor="middle" x="820" y="85">Docs · Sheets</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="200" x="720" y="104"></rect><text fill="#bfe6ff" text-anchor="middle" x="820" y="125">Calendar</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="200" x="720" y="144"></rect><text fill="#bfe6ff" text-anchor="middle" x="820" y="165">cualquier CLI …</text></g>
+</g>
+</svg>
+</div>
+<div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🧩</span> Por qué está en la lista</h3>
+<p class="text-neutral-300 mb-4">No es solo «enviar un correo con un comando». Es la demostración de un principio más amplio:</p>
+<ul class="space-y-2 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Si algo tiene una CLI, Claude puede operarlo.</span></li>
+<li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Puedes empaquetar flujos de trabajo repetitivos de la oficina en <strong>skills</strong>.</span></li>
+<li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Todo tu Workspace se convierte en una automatización conversacional.</span></li>
+</ul>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Desde el terminal</div><p class="text-neutral-400 text-xs">Gmail, Drive, Docs…</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Skills alrededor</div><p class="text-neutral-400 text-xs">Envuelve tus flujos.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Cualquier CLI</div><p class="text-neutral-400 text-xs">El principio que demuestra.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Mención honorífica n.º 1</div><p class="text-neutral-400 text-xs">No oficial, pero de primera.</p></div>
+</div>
+</section>
+<!-- TÓPICO 2 — Dispatch & Channels -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
+<div>
+<span class="text-xs font-bold text-blue-400 tracking-wider">A TIER · DÓNDE ESTÁS</span>
+<h2 class="text-2xl font-bold">📨 Despacho y canales</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Dos formas de hablar con Claude desde donde ya estás. <strong class="text-blue-400">Dispatch</strong>: empiezas la tarea en el celular y Claude la ejecuta en la computadora, y te envía el resultado. <strong class="text-blue-400">Channels</strong>: conecta Telegram, Discord o iMessage a una sesión en vivo — y funciona <strong class="text-blue-400">en ambos sentidos</strong>.
+      </p>
+<!-- Timeline -->
+<div class="space-y-6 mb-6">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">1</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Dispatch desde el celular</h4>
+<p class="text-neutral-300 text-sm">Envías la tarea desde el teléfono; Claude la ejecuta en la computadora de escritorio, con toda la potencia de la máquina.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">2</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Recibe el resultado de vuelta</h4>
+<p class="text-neutral-300 text-sm">Ideal para continuar la conversación desde el celular: la inicias, te vas y el escritorio te responde cuando termina.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">3</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Channels: chat en vivo</h4>
+<p class="text-neutral-300 text-sm">Conecta Telegram, Discord o iMessage a una sesión en vivo: envía y recibe mensajes desde la app que ya usas.</p>
+</div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo práctico</h3>
+<p class="text-neutral-300">Usa <strong class="text-primary">Dispatch</strong> cuando la tarea es pesada y no quieres quedarte esperando; usa <strong class="text-primary">Channels</strong> cuando quieres conversar en vivo desde una app que ya está abierta.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Dispatch</div><p class="text-neutral-400 text-xs">Celular → escritorio.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Resultado</div><p class="text-neutral-400 text-xs">Vuelve a ti.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Channels</div><p class="text-neutral-400 text-xs">Telegram, Discord, iMessage.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Dos sentidos</div><p class="text-neutral-400 text-xs">Envía y recibe en vivo.</p></div>
+</div>
+</section>
+<!-- TÓPICO 3 — Desktop App & Design -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
+<div>
+<span class="text-xs font-bold text-blue-400 tracking-wider">A TIER · BASE Y CREACIÓN</span>
+<h2 class="text-2xl font-bold">🖼️ Aplicación de escritorio de Claude y Claude Design</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        O <strong class="text-blue-400">Desktop App</strong> es la base en Mac/Windows para chat, Cowork, conectores y para gestionar rutinas locales y en la nube desde un solo lugar; además, es mejor para copiar y pegar texto sin el ajuste de línea extraño de la terminal. El <strong class="text-blue-400">Claude Design</strong>: describes lo que quieres y crea diseños, diapositivas y documentos de una página pulidos.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Desktop App</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Chat, Cowork y conectores en un solo lugar.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Gestiona routines locales y en la nube, lado a lado.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Copiar y pegar texto sin el salto de línea extraño de la terminal.</span></li>
+</ul>
+</div>
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Claude Design</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Descríbelo y crea diseños y one-pagers pulidos.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Ideal para equipos: comentar y ver sistemas de diseño.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Genera PPT rápidamente, sin armar las diapositivas una por una.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo práctico</h3>
+<p class="text-neutral-300">Mantén el <strong class="text-primary">Desktop App</strong> como centro de tus rutinas y usa el <strong class="text-primary">Diseño</strong> siempre que necesites entregar algo presentable para que otras personas lo vean o comenten.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Base local</div><p class="text-neutral-400 text-xs">Mac/Windows, todo junto.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Routines</div><p class="text-neutral-400 text-xs">Local y cloud en un solo lugar.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Diseño</div><p class="text-neutral-400 text-xs">Slides y one-pagers.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Para equipos</div><p class="text-neutral-400 text-xs">Comentarios y PPTs rápidos.</p></div>
+</div>
+</section>
+<!-- TÓPICO 4 — Plan Mode & Auto Mode -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
+<div>
+<span class="text-xs font-bold text-blue-400 tracking-wider">A TIER · CONTROL</span>
+<h2 class="text-2xl font-bold">🗺️ Modo de planificación y modo automático</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Dos modos que cambian <strong class="text-blue-400">cómo</strong> Claude actúa. <strong class="text-blue-400">Plan Mode</strong>: investiga y propone un plan <strong class="text-blue-400">antes de tocar en cualquier cosa</strong>. <strong class="text-blue-400">Auto Mode</strong>: aprueba acciones seguras y bloquea las riesgosas, sin estar preguntando — en la práctica, un excelente nivel de permisos.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Cuándo usar Plan/Auto</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span><strong>Plan:</strong> tarea grande o ambigua que merece un plan de antemano.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span><strong>Auto:</strong> trabajo prolongado en el que aprobar todo resulta agotador.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Auto deja pasar lo seguro y frena lo arriesgado.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Malentendidos</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Creer que Auto Mode lo aprueba todo a ciegas — bloquea lo arriesgado.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Omitir Plan Mode en tareas donde el retrabajo sale caro.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Confundir «plan» con «ejecución»: Plan solo propone.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo práctico</h3>
+<p class="text-neutral-300">Combina ambos: empieza en <strong class="text-primary">Plan Mode</strong> para alinear el enfoque y, una vez aprobado el plan, deja que el <strong class="text-primary">Auto Mode</strong> llevar adelante la ejecución sin interrumpirte en cada paso seguro.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Plan Mode</div><p class="text-neutral-400 text-xs">Planifica antes de actuar.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Auto Mode</div><p class="text-neutral-400 text-xs">Aprueba solo lo seguro.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Bloquea el riesgo</div><p class="text-neutral-400 text-xs">Sin preguntar por preguntar.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Permiso</div><p class="text-neutral-400 text-xs">Auto es un nivel.</p></div>
+</div>
+</section>
+<!-- TÓPICO 5 — Hooks, Effort Levels & Ultracode -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
+<div>
+<span class="text-xs font-bold text-blue-400 tracking-wider">A TIER · AUTOMATIZACIÓN Y PROFUNDIDAD</span>
+<h2 class="text-2xl font-bold">⚙️ Hooks, Effort Levels &amp; Ultracode</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Tres palancas precisas. <strong class="text-blue-400">Hooks</strong> ejecutan sus propios comandos automáticamente durante los eventos de la sesión. <strong class="text-blue-400">Effort Levels</strong> ajusta la profundidad del razonamiento desde baja hasta máxima (<span class="font-mono text-blue-400">/effort</span>). E <strong class="text-blue-400">Ultracode</strong> es el nivel de esfuerzo máximo: razonamiento al máximo + workflows multiagente automáticos.
+      </p>
+<!-- Code box -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Ejemplo</span>
+<span class="text-xs text-blue-400 font-mono">eventos · esfuerzo · máximo</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 leading-relaxed overflow-x-auto"><span class="text-blue-400"># Hooks</span>: rode um comando seu em eventos da sessão
+on: PostToolUse  →  rodar lint/format automaticamente
+
+<span class="text-blue-400">/effort</span> high       <span class="text-neutral-500"># do baixo ao máximo</span>
+<span class="text-blue-400">Ultracode</span>          <span class="text-neutral-500"># talo + multi-agente automático</span></pre>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Buen uso</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Hook que formatea o ejecuta lint después de cada edición.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Sube el effort en tareas difíciles y bájalo en las triviales.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Ultracode para los problemas más complicados.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Qué evitar</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Dejar todo al máximo esfuerzo (se gasta sin necesidad).</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Hooks que ejecutan comandos lentos en cada evento.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Olvidar que un nivel de esfuerzo bajo ya resuelve lo trivial.</span></li>
+</ul>
+</div>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Hooks</div><p class="text-neutral-400 text-xs">Comandos en eventos.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">/effort</div><p class="text-neutral-400 text-xs">De lo más bajo al máximo.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Ultracode</div><p class="text-neutral-400 text-xs">Esfuerzo máximo.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Multiagente</div><p class="text-neutral-400 text-xs">Automático al máximo.</p></div>
+</div>
+</section>
+<!-- TÓPICO 6 — Visibilidade & economia -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
+<div>
+<span class="text-xs font-bold text-blue-400 tracking-wider">A TIER · VER Y AHORRAR</span>
+<h2 class="text-2xl font-bold">👁️ Visibilidad y ahorro</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        La capa que mantiene todo bajo control. <strong class="text-blue-400">Agent View</strong> es el dashboard de todas las terminales/agentes en segundo plano y su estado; <span class="font-mono text-blue-400">/btw</span> hace una pregunta en paralelo sin interrumpir la tarea principal; y <span class="font-mono text-blue-400">/context</span> muestra qué está llenando la ventana. Juntos, ofrecen visibilidad y ahorro.
+      </p>
+<!-- Mono box: status / camada -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">La capa de visibilidad</span>
+<span class="text-xs text-blue-400 font-mono">ver · preguntar · ahorrar</span>
+</div>
+<div class="font-mono text-sm bg-dark-900 rounded-lg p-4 border border-dark-600 flex flex-wrap items-center gap-x-4 gap-y-1">
+<span class="text-blue-400">Agent View</span>
+<span class="text-neutral-500">·</span>
+<span class="text-blue-400">/btw</span>
+<span class="text-neutral-500">·</span>
+<span class="text-blue-400">/context</span>
+<span class="text-neutral-500">·</span>
+<span class="text-blue-400">/usage</span>
+<span class="text-neutral-500">·</span>
+<span class="text-emerald-400">Prompt Caching</span>
+<span class="text-neutral-500">·</span>
+<span class="text-blue-400">/background</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Ver y preguntar</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span><strong>Agent View:</strong> estado de todos los agents en segundo plano.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span><span class="font-mono">/btw</span>: pregunta en paralelo sin interrumpir la tarea.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span><span class="font-mono">/background</span>: envía la sesión a segundo plano.</span></li>
+</ul>
+</div>
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Ahorrar</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span><span class="font-mono">/context</span>: qué está llenando la ventana.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span><span class="font-mono">/usage</span>: tokens y costo de la sesión.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span><strong>Prompt Caching:</strong> reutiliza el contexto repetido y ahorra muchos tokens.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Consejo práctico</h3>
+<p class="text-neutral-300">O <strong class="text-primary">Prompt Caching</strong> se ejecuta en segundo plano: no tienes que configurar nada para ahorrar. Combina <span class="font-mono">/context</span> e <span class="font-mono">/usage</span> para ver adónde van los tokens.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Agent View</div><p class="text-neutral-400 text-xs">Dashboard de agents.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">/btw · /context</div><p class="text-neutral-400 text-xs">Pregunta y ventana.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">/usage</div><p class="text-neutral-400 text-xs">Tokens y costo.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-blue-400 font-bold text-sm mb-1">Prompt Caching</div><p class="text-neutral-400 text-xs">Ahorra en segundo plano.</p></div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🏁</span> Resumen del módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Google Workspace CLI</strong><span class="text-neutral-400"> — Gmail/Drive/Docs/Sheets/Calendar desde la terminal; demuestra que Claude maneja cualquier CLI.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Dispatch &amp; Channels</strong><span class="text-neutral-400"> — celular → escritorio y chat en vivo por Telegram/Discord/iMessage.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Desktop App &amp; Design</strong><span class="text-neutral-400"> — base local para todo y generación de diseños/diapositivas pulidos.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Plan &amp; Auto Mode</strong><span class="text-neutral-400"> — planifica antes de actuar y aprueba lo seguro sin preguntar.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Hooks, Effort &amp; Ultracode</strong><span class="text-neutral-400"> — automatización basada en eventos, profundidad ajustable y esfuerzo máximo.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Visibilidad y ahorro</strong><span class="text-neutral-400"> — Agent View, /btw, /context, /usage, Prompt Caching y /background.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-blue-400 mb-2">Completaste la Trilha 2 🎉</h3>
+<p class="text-neutral-300">Ya conoces los Tiers B y A, lo útil y lo casi top. Ahora sube a la ruta estrella: el Top 12, del #12 al #1.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Volver a la Ruta 2</a>
+<a class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors" href="../trilha3/index.html">Ruta 3 · El Top 12 →</a>
+</div>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>🏆 Claude Code Tier S · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+</body>
+</html>

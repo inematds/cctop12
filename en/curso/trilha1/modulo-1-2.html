@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 1.2 — Cowork, voice, and the web (Tier C) | Claude Code Tier S</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: emerald (T1) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .text-amber-400 { color: #b45309; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(180,83,9,0.12); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(180,83,9,0.25); }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.5 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://inematds.github.io/cctop12/curso/trilha1/modulo-1-2.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/cctop12/en/curso/trilha1/modulo-1-2.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/cctop12/es/curso/trilha1/modulo-1-2.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha1/modulo-1-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-1-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha1/modulo-1-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🏆</span><span class="font-bold text-lg hidden sm:inline">Claude Code Tier S</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10" href="index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">The Foundation</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Productivity</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">The Top 12</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<div class="flex items-center space-x-2 text-sm text-neutral-400">
+<a class="hover:text-emerald-400" href="../../index.html">Start</a>
+<span>/</span>
+<a class="hover:text-emerald-400" href="index.html">Track 1</a>
+<span>/</span>
+<span class="text-emerald-400">Module 1.2</span>
+</div>
+</nav>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MODULE 1.2 · TIER C</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🗣️ Cowork, voice, and the web</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">
+        Good but underused features. Hands-free voice, the Cowork desktop app, connectors in the CLI, local file access, citations, and the web collaboration layer. All of this expands where and how Claude works.
+      </p>
+<div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">6</div><div class="text-xs text-neutral-400">Topics</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">45</div><div class="text-xs text-neutral-400">Minutes</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Basic</div><div class="text-xs text-neutral-400">Level</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Tier C</div><div class="text-xs text-neutral-400">Type</div></div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<h2 class="text-2xl font-bold mb-6">Detailed content</h2>
+<!-- TÓPICO 1 — Voice Mode -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">1</span>
+<div>
+<span class="text-xs font-bold text-emerald-400 tracking-wider">TIER C · COWORK, VOICE &amp; WEB</span>
+<h2 class="text-2xl font-bold">🎙️ Voice Mode</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        O <span class="font-mono text-emerald-400">/voice</span> opens full spoken conversations with Claude— <strong class="text-emerald-400">hands-free</strong>. It works for both chatting and <strong class="text-emerald-400">dictate</strong>. Great for brainstorming without a keyboard; external tools like <strong class="text-emerald-400">Wispr Flow</strong> make dictation even faster.
+      </p>
+<!-- SVG: fluxo de voz -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+<svg aria-label="The user’s speech is transcribed by voice and turned into action by Claude, hands-free" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 1000 180" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m12-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#34d399"></stop><stop offset="1" stop-color="#10b981"></stop></lineargradient>
+<filter height="180%" id="m12-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m12-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#10b981" opacity="0.12" r="1.3"></circle></pattern>
+<marker id="m12-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#34d399"></path></marker>
+</defs>
+<rect fill="url(#m12-grid)" height="180" width="1000" x="0" y="0"></rect>
+<g filter="url(#m12-glow)"><rect fill="#0e2018" height="56" rx="12" stroke="url(#m12-grad)" stroke-width="2.5" width="170" x="40" y="64"></rect></g>
+<text fill="#34d399" font-size="15" font-weight="600" text-anchor="middle" x="125" y="88">🎙️ you speak</text>
+<text fill="#6ee7b7" font-size="12" text-anchor="middle" x="125" y="108">hands-free</text>
+<!-- ondas de áudio -->
+<g opacity="0.7" stroke="#38bdf8" stroke-linecap="round" stroke-width="3">
+<line class="wf-a" x1="270" x2="270" y1="92" y2="92"></line>
+<line class="wf-a" x1="300" x2="300" y1="74" y2="110"></line>
+<line class="wf-a" x1="330" x2="330" y1="62" y2="122"></line>
+<line class="wf-a" x1="360" x2="360" y1="78" y2="106"></line>
+<line class="wf-a" x1="390" x2="390" y1="70" y2="114"></line>
+</g>
+<g fill="none" opacity="0.6" stroke="#34d399" stroke-width="2">
+<path d="M210,92 L262,92" marker-end="url(#m12-ah)"></path>
+<path d="M412,92 L498,92" marker-end="url(#m12-ah)"></path>
+</g>
+<g filter="url(#m12-glow)"><rect fill="#0e1b26" height="56" rx="12" stroke="#38bdf8" stroke-width="2.5" width="180" x="500" y="64"></rect></g>
+<text fill="#bfe6ff" font-size="15" font-weight="600" text-anchor="middle" x="590" y="88">transcription</text>
+<text fill="#bfe6ff" font-size="12" text-anchor="middle" x="590" y="108">/voice · Wispr</text>
+<g fill="none" opacity="0.6" stroke="#34d399" stroke-width="2">
+<path d="M680,92 L760,92" marker-end="url(#m12-ah)"></path>
+</g>
+<g filter="url(#m12-glow)"><rect fill="#0e2018" height="56" rx="12" stroke="url(#m12-grad)" stroke-width="2.5" width="198" x="762" y="64"></rect></g>
+<text fill="#34d399" font-size="15" font-weight="600" text-anchor="middle" x="861" y="88">Claude acts</text>
+<text fill="#6ee7b7" font-size="12" text-anchor="middle" x="861" y="108">without a keyboard</text>
+</svg>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">Use voice for the <strong class="text-primary">think out loud</strong> — describing a long problem is faster by speaking than typing. For high-speed dictation, you can pair it with an external tool like Wispr Flow.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">/voice</div><p class="text-neutral-400 text-xs">Opens voice mode.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Hands-free</div><p class="text-neutral-400 text-xs">Full conversation.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Dictation</div><p class="text-neutral-400 text-xs">Speech becomes text.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Wispr Flow</div><p class="text-neutral-400 text-xs">External, faster.</p></div>
+</div>
+</section>
+<!-- TÓPICO 2 — Cowork -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">2</span>
+<div>
+<span class="text-xs font-bold text-emerald-400 tracking-wider">TIER C · COWORK, VOICE &amp; WEB</span>
+<h2 class="text-2xl font-bold">🖥️ Cowork</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Cowork is the <strong class="text-emerald-400">desktop agent WITHOUT a terminal</strong> from Anthropic, built for knowledge work. It’s a great product — but almost everything it does can be done in <strong class="text-emerald-400">Claude Code</strong>, with greater capacity. Its place is as <strong class="text-emerald-400">entry point</strong> for non-technical people who are overwhelmed.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ When Cowork shines</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>A nontechnical person who’s intimidated by the terminal.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Anyone who’s overwhelmed and wants a simple entry point.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Knowledge work without needing everything in Code.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Where Code wins</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Almost everything in Cowork also runs in Claude Code.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Code has more capability and more control.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>For advanced use, the terminal is still home.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">If you're already comfortable in the terminal, start with Code. Save Cowork for introducing the ecosystem to <strong class="text-primary">someone who isn’t technical</strong> — it’s the gentlest way to show what an agent does.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">No terminal</div><p class="text-neutral-400 text-xs">Desktop agent.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Knowledge</div><p class="text-neutral-400 text-xs">Non-coding work.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">≈ Code</div><p class="text-neutral-400 text-xs">Code does almost everything.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Input</div><p class="text-neutral-400 text-xs">Good for getting started.</p></div>
+</div>
+</section>
+<!-- TÓPICO 3 — Interactive Connectors -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">3</span>
+<div>
+<span class="text-xs font-bold text-emerald-400 tracking-wider">TIER C · COWORK, VOICE &amp; WEB</span>
+<h2 class="text-2xl font-bold">🔌 Interactive Connectors</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Add and manage <strong class="text-emerald-400">MCP connectors inside the CLI</strong>. You log in to a service and the <strong class="text-emerald-400">tool calls become available automatically</strong> — without having to configure MCP in the terminal by hand. It’s interactive: log in, and the tools appear.
+      </p>
+<!-- Timeline -->
+<div class="space-y-6 mb-6">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold">1</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Add the connector in the CLI</h4>
+<p class="text-neutral-300 text-sm">Instead of editing config in the terminal, you add the connector from within Claude Code itself.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold">2</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Log in to the service</h4>
+<p class="text-neutral-300 text-sm">The login flow is interactive. You authorize once, and you're done.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold">3</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Available tool calls</h4>
+<p class="text-neutral-300 text-sm">That connector's tools are available for Claude to use automatically — no manual setup.</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Within the CLI</div><p class="text-neutral-400 text-xs">Not in the raw terminal.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">MCP</div><p class="text-neutral-400 text-xs">Default connectors.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Interactive login</div><p class="text-neutral-400 text-xs">Authorizes once.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Automatic</div><p class="text-neutral-400 text-xs">Tools appear on their own.</p></div>
+</div>
+</section>
+<!-- TÓPICO 4 — Local File Access -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">4</span>
+<div>
+<span class="text-xs font-bold text-emerald-400 tracking-wider">TIER C · COWORK, VOICE &amp; WEB</span>
+<h2 class="text-2xl font-bold">📁 Local File Access</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Connect a folder for Claude <strong class="text-emerald-400">read and organize your files</strong>. It's one of the major benefits of local terminal agents: they don't just talk about the files—they actually work with them, reading, organizing, and editing.
+      </p>
+<div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><span class="mr-2">🗂️</span> What it does with the folder</h3>
+<ul class="space-y-2 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Reads the content to understand what's there.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Organizes, renames, and restructures when you ask.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Edits files in place — it’s not read-only.</span></li>
+</ul>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">Point it to a messy downloads or notes folder and ask it to organize things. It's the fastest way to see why having the agent <strong class="text-primary">in your local files</strong> is so valuable.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Connect folder</div><p class="text-neutral-400 text-xs">Just point it and go.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Reads</div><p class="text-neutral-400 text-xs">Understands the content.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Organizes</div><p class="text-neutral-400 text-xs">Restructure everything.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Local</div><p class="text-neutral-400 text-xs">Terminal advantage.</p></div>
+</div>
+</section>
+<!-- TÓPICO 5 — Citations & Chat Search -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">5</span>
+<div>
+<span class="text-xs font-bold text-emerald-400 tracking-wider">TIER C · COWORK, VOICE &amp; WEB</span>
+<h2 class="text-2xl font-bold">📚 Citations &amp; Chat Search</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Two anchoring and recovery features. <strong class="text-emerald-400">Citations</strong> grounds responses in your documents with exact citations (via API). <strong class="text-emerald-400">Chat Search</strong> searches all your past conversations — retrieves what you’ve already discussed.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Citations</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Grounds the response in your documents.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Shows the exact citation for where each excerpt came from.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Available via API: trust and traceability.</span></li>
+</ul>
+</div>
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Chat Search</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Searches all past conversations.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Recovers that decision you made weeks ago.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>"Where have we talked about this before?" — solved.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">Think of them as a pair: <strong class="text-primary">Citations</strong> says where the answer came from; <strong class="text-primary">Chat Search</strong> says where you’ve already talked about it. Together, they turn history and documents into useful memory.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Grounded</div><p class="text-neutral-400 text-xs">In your docs.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Exact citation</div><p class="text-neutral-400 text-xs">Trackable (API).</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Searches conversations</div><p class="text-neutral-400 text-xs">All history.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Useful memory</div><p class="text-neutral-400 text-xs">Recovers the past.</p></div>
+</div>
+</section>
+<!-- TÓPICO 6 — Web & colaboração -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">6</span>
+<div>
+<span class="text-xs font-bold text-emerald-400 tracking-wider">TIER C · COWORK, VOICE &amp; WEB</span>
+<h2 class="text-2xl font-bold">💬 Web &amp; collaboration</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        The layer that brings Claude wherever your team already works — and gives you privacy when you need it: <strong class="text-emerald-400">Claude in Slack</strong>, <strong class="text-emerald-400">Incognito Chats</strong>, <strong class="text-emerald-400">/teleport</strong>, <strong class="text-emerald-400">Cowork Plugins</strong> e <strong class="text-emerald-400">Cowork Projects</strong>.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">Collaboration</h4>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Claude in Slack</strong> — mention <span class="font-mono">@Claude</span> and it does the task and replies in the channel.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Cowork Plugins</strong> — extends Cowork with extra capabilities.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Cowork Projects</strong> — organizes work by project in Cowork.</span></li>
+</ul>
+</div>
+<div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">Privacy &amp; bridge</h4>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Incognito Chats</strong> — chat that isn't saved, remembered, or used for training.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>/teleport</strong> — pulls a Claude web session into the terminal.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">Start something casually on your phone or the web, and when you want the power of the terminal, use <span class="font-mono">/teleport</span> to <strong class="text-primary">bring the session to Code</strong> without losing context.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">@Claude on Slack</div><p class="text-neutral-400 text-xs">Task in the channel.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Incognito</div><p class="text-neutral-400 text-xs">Doesn't save or train.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">/teleport</div><p class="text-neutral-400 text-xs">Web → terminal.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Cowork +</div><p class="text-neutral-400 text-xs">Plugins and projects.</p></div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🏁</span> Module summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Voice Mode</strong><span class="text-neutral-400"> — /voice for spoken conversation and dictation, hands-free.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Cowork</strong><span class="text-neutral-400"> — agentic desktop without a terminal; entry point for nontechnical users.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Interactive Connectors</strong><span class="text-neutral-400"> — MCP inside the CLI, automatic tool calls after login.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Local File Access</strong><span class="text-neutral-400"> — connect a folder to read and organize files.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Citations &amp; Chat Search</strong><span class="text-neutral-400"> — grounding in docs and searching past conversations.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Web &amp; collaboration</strong><span class="text-neutral-400"> — Slack, incognito, /teleport, and Cowork plugins/projects.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-emerald-400 mb-2">You completed Track 1 🎉</h3>
+<p class="text-neutral-300">With the foundation (Tier D) and Tier C in place, the next path takes things up a level: real productivity.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Back to Track 1</a>
+<a class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors" href="../trilha2/index.html">Track 2 · Productivity →</a>
+</div>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>🏆 Claude Code Tier S · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+</body>
+</html>

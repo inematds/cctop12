@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 3.1 — From #12 to #7 | Claude Code Tier S</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: purple (T3) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.06); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .text-amber-400 { color: #b45309; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(180,83,9,0.12); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(180,83,9,0.25); }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.5 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://inematds.github.io/cctop12/curso/trilha3/modulo-3-1.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/cctop12/en/curso/trilha3/modulo-3-1.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/cctop12/es/curso/trilha3/modulo-3-1.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/modulo-3-1.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-3-1.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha3/modulo-3-1.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🏆</span><span class="font-bold text-lg hidden sm:inline">Claude Code Tier S</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">The Foundation</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Productivity</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10" href="index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">The Top 12</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<div class="flex items-center space-x-2 text-sm text-neutral-400">
+<a class="hover:text-purple-400" href="../../index.html">Start</a>
+<span>/</span>
+<a class="hover:text-purple-400" href="index.html">Track 3</a>
+<span>/</span>
+<span class="text-purple-400">Module 3.1</span>
+</div>
+</nav>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MODULE 3.1 · TIER S</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">📉 From #12 to #7</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">
+        The first half of the Top 12 — goals that complete themselves, cloud planning, reports on your own usage, automatic memory, agent teams, and the /rewind time machine.
+      </p>
+<div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">6</div><div class="text-xs text-neutral-400">Topics</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">40</div><div class="text-xs text-neutral-400">Minutes</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Interm.</div><div class="text-xs text-neutral-400">Level</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Practice</div><div class="text-xs text-neutral-400">Type</div></div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<h2 class="text-2xl font-bold mb-6">Detailed content</h2>
+<!-- TÓPICO 1 — #12 /goal -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#12 · S TIER</span>
+<h2 class="text-2xl font-bold">🎯 /goal</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        With the <span class="font-mono text-purple-400">/goal</span> you define one <strong class="text-purple-400">goal with a "done" criterion</strong> and Claude <strong class="text-purple-400">doesn't stop</strong> — has built-in verification — until the condition is met. The secret is a "done" as <strong class="text-purple-400">goal</strong> possible: subjectivity is its weak point. You kick it off, go to sleep or lunch, and come back to a result delivered with high confidence.
+      </p>
+<!-- SVG verification loop (obrigatório no módulo) -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+<svg aria-label="/goal runs a work and verification loop: it tries, checks the completion criteria, and only exits the loop when the condition is met" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 1000 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m31-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#c084fc"></stop><stop offset="1" stop-color="#a855f7"></stop></lineargradient>
+<filter height="180%" id="m31-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m31-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#a855f7" opacity="0.12" r="1.3"></circle></pattern>
+<marker id="m31-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#c084fc"></path></marker>
+<marker id="m31-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m31-grid)" height="240" width="1000" x="0" y="0"></rect>
+<g fill="none" opacity="0.65" stroke="#c084fc" stroke-width="2">
+<path d="M256,120 L388,120" marker-end="url(#m31-ah)"></path>
+<path d="M644,120 L756,120" marker-end="url(#m31-ah)"></path>
+</g>
+<g fill="none" opacity="0.55" stroke="#38bdf8" stroke-width="1.8">
+<path d="M516,158 C516,214 300,214 188,214 L188,152" marker-end="url(#m31-ahc)"></path>
+</g>
+<text fill="#38bdf8" font-size="12" text-anchor="middle" x="352" y="206">the criterion hasn’t been met yet → try again</text>
+<g filter="url(#m31-glow)"><rect fill="#1a1230" height="64" rx="14" stroke="url(#m31-grad)" stroke-width="2.5" width="148" x="40" y="88"></rect></g>
+<text fill="#c084fc" font-size="17" font-weight="600" text-anchor="middle" x="114" y="114">/goal</text>
+<text fill="#d8b4fe" font-size="11" text-anchor="middle" x="114" y="134">done objective</text>
+<g class="wf-a"><rect fill="#0e1b26" height="56" rx="12" stroke="#38bdf8" stroke-width="2" width="128" x="388" y="92"></rect><text fill="#bfe6ff" font-size="14" font-weight="600" text-anchor="middle" x="452" y="118">works</text><text fill="#7fd0ff" font-size="11" text-anchor="middle" x="452" y="136">try once</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="56" rx="12" stroke="#38bdf8" stroke-width="2" width="128" x="516" y="92"></rect><text fill="#bfe6ff" font-size="14" font-weight="600" text-anchor="middle" x="580" y="118">checks</text><text fill="#7fd0ff" font-size="11" text-anchor="middle" x="580" y="136">checks whether it’s “done”</text></g>
+<g filter="url(#m31-glow)"><rect fill="#1a1230" height="64" rx="14" stroke="url(#m31-grad)" stroke-width="2.5" width="156" x="756" y="88"></rect></g>
+<text fill="#c084fc" font-size="16" font-weight="600" text-anchor="middle" x="834" y="116">Done</text>
+<text fill="#d8b4fe" font-size="11" text-anchor="middle" x="834" y="136">criterion met</text>
+</svg>
+</div>
+<!-- Code box -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Example</span>
+<span class="text-xs text-purple-400 font-mono">verifiable criterion</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 leading-relaxed overflow-x-auto"><span class="text-purple-400">/goal</span> pesquise X e não pare até 3 resultados que passem no critério
+
+<span class="text-neutral-500"># exemplo real: otimizar um elemento da página</span>
+<span class="text-purple-400">/goal</span> reduza o tempo até este elemento carregar a ~instantâneo
+<span class="text-neutral-500"># rodou ~1h30, tentando e verificando, até bater a meta</span></pre>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ A good definition of "done"</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Loads in under X ms, measurably.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>3 results that pass an automated test.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Green build and all tests passing.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Weak criterion (subjective)</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>"Really hard riddles" — what counts as hard?</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>"Make it look good" — with no stopping point in sight.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Any “done” that depends on taste.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">You don't need to run it for hours. Start a <span class="font-mono">/goal</span> before heading out to lunch and come back to high-confidence completed work. Spend time writing the stopping criterion — that’s what lets the agent know when it has succeeded.</p>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Done objective</div><p class="text-neutral-400 text-xs">Measurable criteria.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Doesn't stop</div><p class="text-neutral-400 text-xs">Keep trying until it works.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Verification</div><p class="text-neutral-400 text-xs">Built-in check.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Fire and forget</div><p class="text-neutral-400 text-xs">Come back with the result.</p></div>
+</div>
+</section>
+<!-- TÓPICO 2 — #11 Ultraplan -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#11 · S TIER</span>
+<h2 class="text-2xl font-bold">🗺️ Ultraplan</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        O <span class="font-mono text-purple-400">ultraplan</span> does <strong class="text-purple-400">offload planning to the cloud</strong>, with multiple planning agents. You type "ultraplan," see the rainbow effect, it asks whether you want to run it in the cloud, and gives you a link. There it <strong class="text-purple-400">clones the repo</strong>, computes in the cloud, and you bring the plan back to the terminal — or run it directly on the web. Ideal for tasks <strong class="text-purple-400">large and ambiguous</strong>.
+      </p>
+<!-- Timeline -->
+<div class="space-y-6 mb-6">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">1</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Type "ultraplan"</h4>
+<p class="text-neutral-300 text-sm">The rainbow effect appears, and it asks if you want to run planning in the cloud.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">2</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Clone the repo and compute in the cloud</h4>
+<p class="text-neutral-300 text-sm">It gives you a link; several planning agents work in the cloud on a copy of your repository.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">3</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Bring the plan back—or run it on the web</h4>
+<p class="text-neutral-300 text-sm">You import the plan into your local terminal, or run it directly on the web. Meanwhile, you keep working (background tasks).</p>
+</div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">Use ultraplan especially when the task is large and poorly defined — that’s where multiple cloud planners pay off. Since it runs in the background, kick off the plan and move on to something else in the terminal while the cloud version thinks.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">In the cloud</div><p class="text-neutral-400 text-xs">Offload planning.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Clone the repo</div><p class="text-neutral-400 text-xs">Computes on a copy.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Go back or web</div><p class="text-neutral-400 text-xs">Import it or run it there.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Background</div><p class="text-neutral-400 text-xs">Work while you plan.</p></div>
+</div>
+</section>
+<!-- TÓPICO 3 — #10 /insights -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#10 · S TIER</span>
+<h2 class="text-2xl font-bold">📈 /insights</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        O <span class="font-mono text-purple-400">/insights</span> generates a <strong class="text-purple-400">HTML report for the last 30 days</strong> of your Claude Code usage: what you did a lot, what’s not working, features to use more, and skills worth building. It shows <strong class="text-purple-400">messages and sessions</strong> for the period, quick wins, and ambitious workflows, all with a navigable index.
+      </p>
+<!-- Timeline (fluxo do /insights) -->
+<div class="space-y-6 mb-6">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">1</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Reads your last 30 days</h4>
+<p class="text-neutral-300 text-sm">Scans messages and sessions from the period to understand how you actually use Claude Code.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">2</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Combines what works and what gets in the way</h4>
+<p class="text-neutral-300 text-sm">Points out what's good, what's bad, underused features, and skills that would make a difference.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">3</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Delivers an HTML file with a navigable index</h4>
+<p class="text-neutral-300 text-sm">Short-term quick wins and ambitious long-term workflows, organized for you to explore.</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ What you discover</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>What you do a lot (and could turn into a skill).</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Features you’re not using properly yet.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Quick wins and ambitious workflows.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Without /insights</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Keep repeating the same friction without realizing it.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Leave valuable features sitting idle.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Never see your own usage progress.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">Run the <span class="font-mono">/insights</span> once in a while—not every day. It’s great as a periodic checkup to see your usage evolve and identify the next areas for improvement.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">HTML report</div><p class="text-neutral-400 text-xs">Browsable index.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">30 days</div><p class="text-neutral-400 text-xs">Messages and sessions.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Quick wins</div><p class="text-neutral-400 text-xs">And ambitious workflows.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Check-up</div><p class="text-neutral-400 text-xs">See usage evolve.</p></div>
+</div>
+</section>
+<!-- TÓPICO 4 — #9 Auto Memory -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#9 · S TIER</span>
+<h2 class="text-2xl font-bold">🧠 Auto Memory</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Previously called "autodream," Auto Memory is Claude <strong class="text-purple-400">automatically improving memory without you asking</strong>. At intervals between sessions, conversations, or periods of time, it reviews what was done and <strong class="text-purple-400">updates itself</strong> — “dreams” and gets smarter, <strong class="text-purple-400">per repository</strong>.
+      </p>
+<div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><span class="mr-2">🌙</span> How the “dream” works</h3>
+<p class="text-neutral-300 mb-4">Memory stops being something you maintain by hand: the agent automatically updates what it learns about your project.</p>
+<ul class="space-y-2 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span>Runs <strong>at intervals</strong> — from sessions, conversations, or time.</span></li>
+<li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span>É <strong>per repository</strong>: each project builds its own memory.</span></li>
+<li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span>The more you use it, the smarter it gets in that context.</span></li>
+</ul>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Check / enable</span>
+<span class="text-xs text-purple-400 font-mono">per repository</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 leading-relaxed overflow-x-auto"><span class="text-purple-400">/memory</span>
+<span class="text-neutral-500"># veja se a auto memory está ligada; ative se quiser.</span>
+<span class="text-neutral-500"># há docs sobre como o processo funciona.</span></pre>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">Check in <span class="font-mono">/memory</span> whether auto memory is enabled in your main repository. When enabled, it works in the background: each time you come back, the agent already knows a little more about the project.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Automatic</div><p class="text-neutral-400 text-xs">Without you asking.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">At intervals</div><p class="text-neutral-400 text-xs">Sessions, conversations, time.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Per repo</div><p class="text-neutral-400 text-xs">Project memory.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">/memory</div><p class="text-neutral-400 text-xs">Check and enable.</p></div>
+</div>
+</section>
+<!-- TÓPICO 5 — #8 Agent Teams -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#8 · S TIER</span>
+<h2 class="text-2xl font-bold">👥 Agent Teams</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        One of the favorite features — and <strong class="text-purple-400">token-intensive</strong>. Agent Teams is a team <strong class="text-purple-400">named</strong> of agents running in parallel and <strong class="text-purple-400">talk to each other</strong>: you create personas (beginner, CEO, etc.); they analyze, brainstorm, and <strong class="text-purple-400">debate in rounds</strong> until you agree. It’s the best way to hear different perspectives on the same idea.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Good use of Agent Teams</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Brainstorm with personas (beginner, CEO, skeptic).</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Debate the pros and cons until you reach a consensus.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Hear different perspectives on a decision.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Don’t confuse</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>They're not subagents — these <strong>talk</strong> with each other.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>It's not cheap: it uses a lot of tokens.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>It’s experimental—you need to enable it in settings.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Enable and invoke</span>
+<span class="text-xs text-purple-400 font-mono">experimental · .claude</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 leading-relaxed overflow-x-auto"><span class="text-neutral-500"># habilite o recurso experimental no settings (.claude)</span>
+
+<span class="text-neutral-500"># depois, invoque em linguagem natural:</span>
+monte um time de agentes — um iniciante, um CEO e um cético —
+e debatam essa ideia em rodadas até concordarem</pre>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">Because Agent Teams are token-intensive, save them for decisions that truly benefit from debate. Give them personas with very different points of view—the friction between them is exactly what leads to the best perspectives.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Named team</div><p class="text-neutral-400 text-xs">Named personas.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Debate</div><p class="text-neutral-400 text-xs">Rounds until they agree.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Token-intensive</div><p class="text-neutral-400 text-xs">Use selectively.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Experimental</div><p class="text-neutral-400 text-xs">Enable it in settings.</p></div>
+</div>
+</section>
+<!-- TÓPICO 6 — #7 /rewind -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#7 · S TIER</span>
+<h2 class="text-2xl font-bold">⏪ /rewind</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        O <span class="font-mono text-purple-400">/rewind</span> is the time machine: it brings back the <strong class="text-purple-400">code AND the conversation</strong> to an earlier checkpoint, and you choose the exact prompt or point. Since everything is cached and reloaded, <strong class="text-purple-400">rewind</strong> when something went wrong, it’s better than saying “no, do it this way” — it avoids piling up messy context and preserves quality.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Rewind (better)</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Go back to the exact point before the error.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Clears the messy context from a bad attempt.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Code and conversation return together, consistent.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ “No, do it this way” (worse)</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Stacks one error on top of another.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Carries polluted context forward.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Quality drops with every correction.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Usage</span>
+<span class="text-xs text-purple-400 font-mono">code + conversation</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 leading-relaxed overflow-x-auto"><span class="text-purple-400">/rewind</span>
+<span class="text-neutral-500"># escolha o prompt / checkpoint exato para onde voltar.</span>
+<span class="text-neutral-500"># código e conversa retornam juntos àquele estado.</span></pre>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">When a response went in the wrong direction, the right instinct is to <span class="font-mono">/rewind</span> — don't patch over it. Returning to the checkpoint keeps the window clean and often produces a better result than trying to fix things in a polluted context.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Code + conversation</div><p class="text-neutral-400 text-xs">They come back together.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Exact point</div><p class="text-neutral-400 text-xs">Choose the prompt.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Clean context</div><p class="text-neutral-400 text-xs">Without piling up clutter.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Quality</div><p class="text-neutral-400 text-xs">Better than fixing it.</p></div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🏁</span> Module summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">/goal (#12)</strong><span class="text-neutral-400"> — an objective with an objective “done” condition; it doesn't stop until it verifies the condition.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Ultraplan (#11)</strong><span class="text-neutral-400"> — cloud planning with multiple agents; clones the repo and returns with the plan.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">/insights (#10)</strong><span class="text-neutral-400"> — an HTML report of your 30 days: quick wins and what to improve.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Auto Memory (#9)</strong><span class="text-neutral-400"> — the agent “dreams” and improves memory on its own, per repository.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Agent Teams (#8)</strong><span class="text-neutral-400"> — a named team that debates in rounds; experimental and token-intensive.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">/rewind (#7)</strong><span class="text-neutral-400"> — takes code and conversation back to a checkpoint; better than patching over the issue.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-purple-400 mb-2">Next module: 3.2 — The podium (#6 → #1)</h3>
+<p class="text-neutral-300">We’ve seen the first half of the Top 12. Now step onto the podium: from Subagents (#6) to the #1 feature of all, Skills.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Back to Track</a>
+<a class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors" href="modulo-3-2.html">Next: The podium →</a>
+</div>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>🏆 Claude Code Tier S · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+</body>
+</html>

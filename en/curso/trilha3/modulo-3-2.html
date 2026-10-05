@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 3.2 — The podium: #6 to #1 | Claude Code Tier S</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15',
+      dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+    } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    /* Light mode base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light accent: purple (T3) */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.06); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    /* Light - remove gradients + special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(185,28,28,0.06); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(185,28,28,0.25); }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.06); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .text-amber-400 { color: #b45309; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(180,83,9,0.12); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(180,83,9,0.25); }
+    /* Light - navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    /* Dark - softened borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG light-mode taming */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.5 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://inematds.github.io/cctop12/curso/trilha3/modulo-3-2.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/cctop12/en/curso/trilha3/modulo-3-2.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/cctop12/es/curso/trilha3/modulo-3-2.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/modulo-3-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-3-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha3/modulo-3-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🏆</span><span class="font-bold text-lg hidden sm:inline">Claude Code Tier S</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">The Foundation</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Productivity</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10" href="index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">The Top 12</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<div class="flex items-center space-x-2 text-sm text-neutral-400">
+<a class="hover:text-purple-400" href="../../index.html">Start</a>
+<span>/</span>
+<a class="hover:text-purple-400" href="index.html">Track 3</a>
+<span>/</span>
+<span class="text-purple-400">Module 3.2</span>
+</div>
+</nav>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MODULE 3.2 · TIER S</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">👑 The podium: from #6 to #1</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">
+        The six features that make the biggest difference in your day. They’re not impressive because they’re flashy—they’re impressive because you come to depend on them. From parallelization to the #1 feature of all: Skills.
+      </p>
+<div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">6</div><div class="text-xs text-neutral-400">Topics</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">40</div><div class="text-xs text-neutral-400">Minutes</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Interm.</div><div class="text-xs text-neutral-400">Level</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Practice</div><div class="text-xs text-neutral-400">Type</div></div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<h2 class="text-2xl font-bold mb-6">Detailed content</h2>
+<!-- TÓPICO 1 — #6 Subagents -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#6 · S TIER</span>
+<h2 class="text-2xl font-bold">🤖 Subagents</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Subagents are agents in <strong class="text-purple-400">background</strong> which run on <strong class="text-purple-400">parallel</strong> — each in its own context window. They can be invoked automatically or on request. The difference from Agent Teams: subagents <strong class="text-purple-400">don't talk to each other</strong>; they only report back to the main terminal that created them. It’s the cleanest way to do several things at once without cluttering your context.
+      </p>
+<!-- SVG fan-out (obrigatório no módulo) -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+<svg aria-label="A main terminal launches multiple subagents in parallel, each in its own context, which converge back into a single result" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 1000 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m32-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#c084fc"></stop><stop offset="1" stop-color="#a855f7"></stop></lineargradient>
+<filter height="180%" id="m32-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m32-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#a855f7" opacity="0.12" r="1.3"></circle></pattern>
+<marker id="m32-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#c084fc"></path></marker>
+<marker id="m32-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m32-grid)" height="240" width="1000" x="0" y="0"></rect>
+<g fill="none" opacity="0.6" stroke="#c084fc" stroke-width="2">
+<path d="M196,120 C300,120 320,38 452,38" marker-end="url(#m32-ah)"></path>
+<path d="M196,120 C300,120 320,79 452,79" marker-end="url(#m32-ah)"></path>
+<path d="M196,120 L452,120" marker-end="url(#m32-ah)"></path>
+<path d="M196,120 C300,120 320,161 452,161" marker-end="url(#m32-ah)"></path>
+<path d="M196,120 C300,120 320,202 452,202" marker-end="url(#m32-ah)"></path>
+</g>
+<g fill="none" opacity="0.5" stroke="#38bdf8" stroke-width="1.8">
+<path d="M588,38  C700,38 720,120 800,120" marker-end="url(#m32-ahc)"></path>
+<path d="M588,79  C700,79 720,120 800,120" marker-end="url(#m32-ahc)"></path>
+<path d="M588,120 L800,120" marker-end="url(#m32-ahc)"></path>
+<path d="M588,161 C700,161 720,120 800,120" marker-end="url(#m32-ahc)"></path>
+<path d="M588,202 C700,202 720,120 800,120" marker-end="url(#m32-ahc)"></path>
+</g>
+<g filter="url(#m32-glow)"><rect fill="#1a1230" height="64" rx="14" stroke="url(#m32-grad)" stroke-width="2.5" width="156" x="40" y="88"></rect></g>
+<text fill="#c084fc" font-size="19" font-weight="600" text-anchor="middle" x="118" y="114">Terminal</text>
+<text fill="#d8b4fe" font-size="12" text-anchor="middle" x="118" y="134">main session</text>
+<g font-size="13" font-weight="600">
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="136" x="452" y="22"></rect><text fill="#bfe6ff" text-anchor="middle" x="520" y="43">subagent</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="136" x="452" y="63"></rect><text fill="#bfe6ff" text-anchor="middle" x="520" y="84">subagent</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="136" x="452" y="104"></rect><text fill="#bfe6ff" text-anchor="middle" x="520" y="125">subagent</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="136" x="452" y="145"></rect><text fill="#bfe6ff" text-anchor="middle" x="520" y="166">subagent</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="136" x="452" y="186"></rect><text fill="#bfe6ff" text-anchor="middle" x="520" y="207">subagent …</text></g>
+</g>
+<g filter="url(#m32-glow)"><rect fill="#1a1230" height="64" rx="14" stroke="url(#m32-grad)" stroke-width="2.5" width="156" x="800" y="88"></rect></g>
+<text fill="#c084fc" font-size="16" font-weight="600" text-anchor="middle" x="878" y="116">Result</text>
+<text fill="#d8b4fe" font-size="11" text-anchor="middle" x="878" y="136">consolidated</text>
+</svg>
+</div>
+<div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><span class="mr-2">🧩</span> Subagents as files</h3>
+<p class="text-neutral-300 mb-4">In your <span class="font-mono text-purple-400">.claude</span> you don’t just have skills, rules, and workflows—you also have <strong class="text-purple-400">agents</strong>. These are Markdown files that define what that agent does, which tools it can use, and which skills it contains. You invoke them much like a skill.</p>
+<ul class="space-y-2 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span>Each subagent has <strong>isolated context</strong> — doesn't fill up your main window.</span></li>
+<li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span>Run in parallel: great for research, scanning files, or independent tasks.</span></li>
+<li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span>Report only to the terminal that created them — no cross-talk.</span></li>
+</ul>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Parallel</div><p class="text-neutral-400 text-xs">Multiple tasks at once.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Isolated context</div><p class="text-neutral-400 text-xs">A separate window for each agent.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">≠ Agent Teams</div><p class="text-neutral-400 text-xs">They don’t debate among themselves.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Definable</div><p class="text-neutral-400 text-xs">Markdown in .claude/agents.</p></div>
+</div>
+</section>
+<!-- TÓPICO 2 — #5 /loop -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#5 · S TIER</span>
+<h2 class="text-2xl font-bold">🔁 /loop</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        O <span class="font-mono text-purple-400">/loop</span> makes a prompt if <strong class="text-purple-400">repeat at an interval</strong> until a condition is met. Under the hood, it uses the cron creation tool — so the loops stay <strong class="text-purple-400">tied to the session</strong>: each terminal has its own, and closing the terminal kills the loop. They also shut down automatically after ~7 days with the terminal open.
+      </p>
+<!-- Code box -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Example</span>
+<span class="text-xs text-purple-400 font-mono">cron · tied to the session</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 leading-relaxed overflow-x-auto"><span class="text-purple-400">/loop</span> remind me to drink water every 1 minute
+
+<span class="text-neutral-500"># or in natural language, without the slash:</span>
+set up a recurring loop to check the queue every 20 minutes</pre>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">You don’t need the <span class="font-mono">/loop</span> to invoke—just ask in natural language ("run this every hour"). Use short loops for reminders and light checks; for something that needs to run while your computer is off, the right place is <strong class="text-primary">Routines</strong> (#3), not the loop.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Interval</div><p class="text-neutral-400 text-xs">Repeats every X amount of time.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Local cron</div><p class="text-neutral-400 text-xs">Uses the cron tool.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Tied to the session</div><p class="text-neutral-400 text-xs">Closed. Gone.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Auto-stop</div><p class="text-neutral-400 text-xs">~7 days of terminal use.</p></div>
+</div>
+</section>
+<!-- TÓPICO 3 — #4 Remote Control -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#4 · S TIER</span>
+<h2 class="text-2xl font-bold">📱 Remote Control</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Remote Control lets you <strong class="text-purple-400">control your local Claude Code session from your phone or the web</strong>. Once enabled, you get a link; open it on your phone (or in the Claude → Code app), and you're controlling the same session— <strong class="text-purple-400">synced in real time</strong>. What you type on your phone appears on your computer, and vice versa.
+      </p>
+<!-- Timeline -->
+<div class="space-y-6 mb-6">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">1</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Enable for the session</h4>
+<p class="text-neutral-300 text-sm">Ask for “enable remote control” in the session you want to take with you. It generates a unique link.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">2</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Open on your phone</h4>
+<p class="text-neutral-300 text-sm">Use the link or the Claude app (Code tab). The same session appears in the palm of your hand.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">3</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Continue from anywhere</h4>
+<p class="text-neutral-300 text-sm">Go for a walk and keep the session alive — brainstorming or building. Every message echoes on both devices.</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Same session</div><p class="text-neutral-400 text-xs">It's not a copy.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Real time</div><p class="text-neutral-400 text-xs">Syncs on both sides.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Mobile or web</div><p class="text-neutral-400 text-xs">Link or Claude app.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Freedom</div><p class="text-neutral-400 text-xs">Step away from your desk without stopping.</p></div>
+</div>
+</section>
+<!-- TÓPICO 4 — #3 Routines -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#3 · S TIER</span>
+<h2 class="text-2xl font-bold">⏰ Routines</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Routines is the ability to <strong class="text-purple-400">schedule a real agent</strong> — not a deterministic Python script. You schedule your Claude Code terminal exactly as you would talk to it. It can be <strong class="text-purple-400">local</strong> or <strong class="text-purple-400">in the cloud</strong> (running with the laptop closed). Create with <span class="font-mono text-purple-400">/schedule</span>; manage them from the desktop app, with calendar and list views.
+      </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Good use of Routine</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Daily summary of what changed in your projects.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Weekly scan of one source and a report.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Cloud routine that runs overnight, with your laptop closed.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Don’t confuse</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>It's not the <span class="font-mono">/loop</span> (this one lives only in the open session).</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>It's not "just an API call" — it's a complete agent.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>You don't need to keep the terminal open if it's running in the cloud.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">The real benefit of Routines is having a <strong class="text-primary">agent</strong> on the schedule, not a dumb robot. It can research, decide, and write—so put as much care into the routine prompt as you would into a regular instruction.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Real agent</div><p class="text-neutral-400 text-xs">Not a fixed script.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Local or cloud</div><p class="text-neutral-400 text-xs">Laptop closed, all good.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">/schedule</div><p class="text-neutral-400 text-xs">Create with one command.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Desktop app</div><p class="text-neutral-400 text-xs">Calendar and list.</p></div>
+</div>
+</section>
+<!-- TÓPICO 5 — #2 Status Line -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+<div>
+<span class="text-xs font-bold text-purple-400 tracking-wider">#2 · S TIER</span>
+<h2 class="text-2xl font-bold">📊 Status Line</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Probably the feature <strong class="text-purple-400">most underrated of all</strong>. The status line is a bottom bar <strong class="text-purple-400">scriptable</strong>: shows the model, effort level, and — most importantly — <strong class="text-purple-400">how much of the context window has already been used</strong>. It's the easiest fix there is: <span class="font-mono text-purple-400">/statusline</span> and describe what you want (you can even send a screenshot).
+      </p>
+<!-- Mock de status line (mono) -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-semibold text-neutral-400 uppercase tracking-wider">Illustrative recreation (not a real screenshot)</span>
+</div>
+<div class="font-mono text-sm bg-dark-900 rounded-lg p-4 border border-dark-600 flex flex-wrap items-center gap-x-4 gap-y-1">
+<span class="text-purple-400">Opus 4.8</span>
+<span class="text-neutral-500">·</span>
+<span class="text-amber-400">effort: high</span>
+<span class="text-neutral-500">·</span>
+<span class="text-emerald-400">ctx 27%</span>
+<span class="text-neutral-400">274k / 1M tokens</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Why it matters so much</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>You can tell right away when you need to hand off, /clear, or /compact.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Knows the model and effort level without guessing.</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>It was the reason many people switched from the extension to the terminal.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Work without it</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Exceeding the context window without noticing and losing quality.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Not knowing whether you're using the right model/effort for the task.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Discover too late that you should have compacted.</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">Combine the status line with <span class="font-mono">/context</span> (what's filling up the window) and <span class="font-mono">/usage</span> (tokens and cost). Together, they give you full control over the session's scarcest resource: context.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Scriptable</div><p class="text-neutral-400 text-xs">Shows whatever you want.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Context</div><p class="text-neutral-400 text-xs">% and tokens in real time.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">/statusline</div><p class="text-neutral-400 text-xs">Describe it, and you're done.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-purple-400 font-bold text-sm mb-1">Underrated</div><p class="text-neutral-400 text-xs">High impact, low cost.</p></div>
+</div>
+</section>
+<!-- TÓPICO 6 — #1 Skills -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-center space-x-4 mb-3">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">6</span>
+<div>
+<span class="text-xs font-bold text-amber-400 tracking-wider">👑 #1 · THE #1 FEATURE</span>
+<h2 class="text-2xl font-bold">⚡ Skills</h2>
+</div>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        The number-one feature — what gives <strong class="text-amber-400">more leverage</strong> in your day-to-day. A skill is essentially a <strong class="text-amber-400">recipe</strong>: just as you open a cookbook to make lasagna instead of improvising from memory, the agent opens the skill and follows the steps. The result: it does the task much more <strong class="text-amber-400">consistent</strong> than if you repeated the same prompt every time.
+      </p>
+<div class="bg-gradient-to-br from-amber-900/30 to-dark-800 rounded-xl border border-amber-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-amber-400 mb-4 flex items-center"><span class="mr-2">📖</span> The agent’s recipe</h3>
+<p class="text-neutral-300 mb-4">Skills are markdown files that live in your <span class="font-mono text-amber-400">.claude</span>. That's why they're so powerful:</p>
+<ul class="space-y-2 text-neutral-300">
+<li class="flex items-start space-x-2"><span class="text-amber-400 mt-1">•</span><span>You create your own <strong>e</strong> pulls in other people’s (plugins bundle skills, hooks, and MCP together).</span></li>
+<li class="flex items-start space-x-2"><span class="text-amber-400 mt-1">•</span><span>They're versatile: they can have many steps and tools, or be a single 4-sentence prompt.</span></li>
+<li class="flex items-start space-x-2"><span class="text-amber-400 mt-1">•</span><span>They chain together: one skill can route to another.</span></li>
+<li class="flex items-start space-x-2"><span class="text-amber-400 mt-1">•</span><span>Work in Claude Code, in Chat <strong>e</strong> in Cowork—and you can share it with the team.</span></li>
+</ul>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ When to turn it into a skill</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>A prompt you find yourself repeating (e.g., session handoff).</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>A process with fixed steps (thumbnails, presentations, video cuts).</span></li>
+<li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Something that needs to come out the same every time — consistency &gt; improvisation.</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Pitfalls</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Thinking a skill needs to be complex — it can be 4 sentences.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Re-explain the same process with a prompt every session.</span></li>
+<li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Don't leave skills unreviewed or unrefined over time (they evolve).</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Practical tip</h3>
+<p class="text-neutral-300">Start with the simplest skill you have: that four-sentence prompt you type all the time. Turn it into <span class="font-mono">/comando</span>. It's the fastest way to see why Skills is #1.</p>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-amber-500/30"><div class="text-amber-400 font-bold text-sm mb-1">Recipes</div><p class="text-neutral-400 text-xs">Ready-to-follow steps.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-amber-500/30"><div class="text-amber-400 font-bold text-sm mb-1">Consistency</div><p class="text-neutral-400 text-xs">The same every time.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-amber-500/30"><div class="text-amber-400 font-bold text-sm mb-1">Shareable</div><p class="text-neutral-400 text-xs">Markdown, with the team.</p></div>
+<div class="bg-dark-800 rounded-lg p-4 border border-amber-500/30"><div class="text-amber-400 font-bold text-sm mb-1">Everywhere</div><p class="text-neutral-400 text-xs">Code, Chat, and Cowork.</p></div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🏁</span> Module summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Subagents (#6)</strong><span class="text-neutral-400"> — parallelism with isolated context; they don't debate, they report.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">/loop (#5)</strong><span class="text-neutral-400"> — recurring interval-based runs via cron, tied to the session.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Remote Control (#4)</strong><span class="text-neutral-400"> — control the local session from your phone, in real time.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Routines (#3)</strong><span class="text-neutral-400"> — a real agent on your schedule, local or in the cloud.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Status Line (#2)</strong><span class="text-neutral-400"> — scriptable bar; context and effort always in view.</span></div></div>
+<div class="flex items-start space-x-3"><span class="text-amber-400 mt-1">★</span><div><strong class="text-white">Skills (#1)</strong><span class="text-neutral-400"> — recipes in markdown; the ecosystem's biggest force multiplier.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-purple-400 mb-2">You completed the Top 12 🎉</h3>
+<p class="text-neutral-300">Review the visual tier list in the deck, or revisit any feature from the foundation to the podium.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="modulo-3-1.html">← Module 3.1 (#12→#7)</a>
+<a class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors" href="../../recursos/tier-list.html" target="_blank">View the visual tier list →</a>
+</div>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-16">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>🏆 Claude Code Tier S · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle=document.getElementById('theme-toggle'),tdi=document.getElementById('theme-toggle-dark-icon'),tli=document.getElementById('theme-toggle-light-icon'),H=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){tdi.classList.remove('hidden');H.classList.remove('dark');}else{tli.classList.remove('hidden');}
+    themeToggle.addEventListener('click',()=>{tdi.classList.toggle('hidden');tli.classList.toggle('hidden');H.classList.toggle('dark');localStorage.setItem('theme',H.classList.contains('dark')?'dark':'light');});
+  </script>
+</body>
+</html>
